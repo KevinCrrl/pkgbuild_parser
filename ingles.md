@@ -5,7 +5,7 @@
 **pkgbuild_parser** is a module written in **Python** (compatible with Python 3.x) designed to extract basic information from an **Arch Linux PKGBUILD**.  
 The main purpose of this module is to provide easy and direct access to the most important fields of a PKGBUILD without relying on external tools or additional libraries.  
 
-- **Version:** 0.1.0  
+- **Version:** 0.1.2  
 - **License:** MIT 2025 KevinCrrl  
 - **Dependencies:** None  
 - **Style:** Simplicity, no external dependencies, easy to use  
@@ -30,6 +30,7 @@ Although internally the module has helper functions (`get_base`, `get_split`, `g
 | `get_dict_base_info()` | Returns a dictionary with all the previous fields in the format `{'pkgname': ..., 'pkgver': ..., ...}`. |
 | `base_info_to_json()` | Returns the base information in **JSON** format with indentation and UTF-8 encoding. |
 | `write_base_info_to_json(json_name)` | Writes the base information to a JSON file named `json_name`. |
+| `remove_quotes(string)` | Removes quotes from a string. |
 
 **Note:** Internal functions (`get_base`, `get_split`, `get_strip`, `get_split_strip`) are intended for module use and **do not need to be used by the user**.  
 
@@ -81,6 +82,12 @@ try:
 
     # Save JSON to file
     my_pkgbuild.write_base_info_to_json("info.json")
+
+    # Using remove_quotes
+    string_with_quotes = mi_pkgbuild.get_pkgdesc()
+    string_without_quotes = pkgbuild_parser.remove_quotes(string_with_quotes)
+    print(f"Original string: {string_with_quotes}")
+    print(f"String without quotes: {string_without_quotes}")
 except pkgbuild_parser.ParserKeyError as e:
     print(e)
 ```

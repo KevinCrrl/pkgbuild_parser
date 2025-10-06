@@ -1,9 +1,16 @@
 # Licencia: MIT 2025 KevinCrrl
 # Módulo sencillo para obtener datos básicos de un PKGBUILD.
-# Versión 0.1.0
+# Versión 0.1.2
 # Documentación en https://github.com/KevinCrrl/pkgbuild_parser/blob/main/README.md
 
 import json
+
+def remove_quotes(string :str) -> str:
+    new_string = ""
+    for char in string:
+        if char != "'" and char != '"':
+            new_string += char
+    return new_string
 
 class ParserFileError(Exception):
     pass

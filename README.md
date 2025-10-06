@@ -7,7 +7,7 @@
 **pkgbuild_parser** es un módulo escrito en **Python** (compatible con Python 3.x) diseñado para extraer información básica de un **PKGBUILD** de Arch Linux.  
 El propósito principal de este módulo es proporcionar un acceso sencillo y directo a los campos más importantes de un PKGBUILD sin depender de herramientas externas ni librerías adicionales.  
 
-- **Versión:** 0.1.0  
+- **Versión:** 0.1.2
 - **Licencia:** MIT 2025 KevinCrrl  
 - **Dependencias:** Ninguna  
 - **Estilo:** Simplicidad, sin dependencias externas, fácil de usar  
@@ -32,6 +32,7 @@ Aunque internamente el módulo tiene funciones de soporte (`get_base`, `get_spli
 | `get_dict_base_info()` | Retorna un diccionario con todos los campos anteriores en formato `{'pkgname': ..., 'pkgver': ..., ...}`. |
 | `base_info_to_json()` | Retorna la información base en formato **JSON** con indentación y codificación UTF-8. |
 | `write_base_info_to_json(json_name)` | Escribe la información base en un archivo JSON con nombre `json_name`. |
+| `remove_quotes(string)` | Elimina las comillas de un string. |
 
 **Nota:** Las funciones internas (`get_base`, `get_split`, `get_strip`, `get_split_strip`) están pensadas para uso del módulo y **no necesitan ser usadas por el usuario**.  
 
@@ -83,6 +84,12 @@ try:
 
     # Obtener JSON y escribirlo a archivo
     mi_pkgbuild.write_base_info_to_json("info.json")
+
+    # Uso de remove_quotes
+    cadena_con_comillas = mi_pkgbuild.get_pkgdesc()
+    cadena_sin_comillas = pkgbuild_parser.remove_quotes(cadena_con_comillas)
+    print(f"Cadena original: {cadena_con_comillas}")
+    print(f"Cadena sin comillas: {cadena_sin_comillas}")
 except pkgbuild_parser.ParserKeyError as e:
     print(e)
 ```
