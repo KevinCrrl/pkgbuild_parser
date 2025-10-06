@@ -1,5 +1,5 @@
 # setup.py
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
     name="pkgbuild_parser",
@@ -7,6 +7,6 @@ setup(
     author="KevinCrrl",
     description="Módulo sencillo para obtener datos básicos de un PKGBUILD de Arch Linux",
     url="https://github.com/KevinCrrl/pkgbuild_parser",
-    packages=find_packages(),
+    py_modules=["pkgbuild_parser"],
     python_requires=">=3.6",
 )
