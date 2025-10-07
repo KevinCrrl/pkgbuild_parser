@@ -4,37 +4,42 @@
 
 ## Introducción
 
-**pkgbuild_parser** es un módulo escrito en **Python** (compatible con Python 3.x) diseñado para extraer información básica de un **PKGBUILD** de Arch Linux.  
-El propósito principal de este módulo es proporcionar un acceso sencillo y directo a los campos más importantes de un PKGBUILD sin depender de herramientas externas ni librerías adicionales.  
+**pkgbuild_parser** es un módulo escrito en **Python** (compatible con Python 3.x) diseñado para extraer información básica de un **PKGBUILD** de Arch Linux.El propósito principal de este módulo es proporcionar un acceso sencillo y directo a los campos más importantes de un PKGBUILD sin depender de herramientas externas ni librerías adicionales.
 
-- **Versión:** 0.1.2
-- **Licencia:** MIT 2025 KevinCrrl  
-- **Dependencias:** Ninguna  
-- **Estilo:** Simplicidad, sin dependencias externas, fácil de usar  
+- **Versión:** 0.2.0
+- **Licencia:** MIT 2025 KevinCrrl
+- **Dependencias:** Ninguna
+- **Estilo:** Simplicidad, sin dependencias externas, fácil de usar
 
-Este módulo permite obtener datos como el nombre del paquete, versión, descripción, licencia, URL y archivo fuente de manera rápida y directa.  
+Este módulo permite obtener datos como el nombre del paquete, versión, descripción, licencia, URL y archivo fuente de manera rápida y directa.
 
 ---
 
 ## Funciones principales para el usuario
 
-Aunque internamente el módulo tiene funciones de soporte (`get_base`, `get_split`, `get_strip`), el **usuario solo necesita usar las funciones de alto nivel**, que son claras y directas:  
+Aunque internamente el módulo tiene funciones de soporte (`get_base`), el **usuario solo necesita usar las funciones de alto nivel**, que son claras y directas:
 
-| Función | Descripción |
-|---------|-------------|
-| `get_pkgname()` | Retorna el nombre del paquete (`pkgname`) como string. |
-| `get_pkgver()` | Retorna la versión del paquete (`pkgver`) como string. |
-| `get_pkgrel()` | Retorna el número de release (`pkgrel`) como string. |
-| `get_pkgdesc()` | Retorna la descripción del paquete (`pkgdesc`) como string, eliminando comentarios y paréntesis innecesarios. |
-| `get_url()` | Retorna la URL principal del proyecto (`url`) como string. |
-| `get_license()` | Retorna la licencia del paquete (`license`) como string, sin comentarios ni paréntesis extra. |
-| `get_source()` | Retorna la fuente principal (`source`) del paquete como string. |
-| `get_dict_base_info()` | Retorna un diccionario con todos los campos anteriores en formato `{'pkgname': ..., 'pkgver': ..., ...}`. |
-| `base_info_to_json()` | Retorna la información base en formato **JSON** con indentación y codificación UTF-8. |
-| `write_base_info_to_json(json_name)` | Escribe la información base en un archivo JSON con nombre `json_name`. |
-| `remove_quotes(string)` | Elimina las comillas de un string. |
+| Función                                              | Descripción                                                                                                      |
+| ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `get_pkgname()`                                     | Retorna el nombre del paquete (`pkgname`) como string.                                                          |
+| `get_pkgver()`                                      | Retorna la versión del paquete (`pkgver`) como string.                                                         |
+| `get_pkgrel()`                                      | Retorna el número de release (`pkgrel`) como string.                                                           |
+| `get_pkgdesc()`                                     | Retorna la descripción del paquete (`pkgdesc`) como string, eliminando comentarios y paréntesis innecesarios. |
+| `get_url()`                                         | Retorna la URL principal del proyecto (`url`) como string.                                                      |
+| `get_license()`                                     | Retorna la licencia del paquete (`license`) como string, sin comentarios ni paréntesis extra.                  |
+| `get_source()`                                      | Retorna la fuente principal (`source`) del paquete como string.                                                 |
+| `get_dict_base_info()`                              | Retorna un diccionario con todos los campos anteriores en formato `{'pkgname': ..., 'pkgver': ..., ...}`.       |
+| `base_info_to_json()`                               | Retorna la información base en formato**JSON** con indentación y codificación UTF-8.                     |
+| `write_base_info_to_json(json_name)`                | Escribe la información base en un archivo JSON con nombre `json_name`.                                         |
+| `remove_quotes(string)`                             | Elimina las comillas de un string.                                                                                |
+| `get_dict_base_info_without_quotes()`               | Retorna un diccionario con la información base pero sin comillas en sus valores.                                 |
+| `base_info_to_json_without_quotes()`                | Retorna la información base en formato **JSON** sin comillas en sus valores.                              |
+| `write_base_info_to_json_without_quotes(json_name)` | Escribe la información base en un archivo JSON sin comillas en sus valores.                                      |
+| `get_epoch()`                                       | Retorna la `epoch` del paquete.                                                                                 |
+| `get_full_package_name()`                           | Retorna el nombre completo del paquete, incluyendo `epoch`, versión y `pkgrel`.                              |
+| `get_list_source()`                                 | Retorna una lista de las fuentes del paquete.                                                                     |
 
-**Nota:** Las funciones internas (`get_base`, `get_split`, `get_strip`, `get_split_strip`) están pensadas para uso del módulo y **no necesitan ser usadas por el usuario**.  
+**Nota:** La función interna (`get_base`) está pensada para uso del módulo y **no necesita ser usada por el usuario**.
 
 ---
 
@@ -74,6 +79,9 @@ try:
     print(mi_pkgbuild.get_url())
     print(mi_pkgbuild.get_license())
     print(mi_pkgbuild.get_source())
+    print(mi_pkgbuild.get_epoch())
+    print(mi_pkgbuild.get_full_package_name())
+    print(mi_pkgbuild.get_list_source())
 
     # Obtener un diccionario de toda la info
     info = mi_pkgbuild.get_dict_base_info()
@@ -90,7 +98,7 @@ try:
     cadena_sin_comillas = pkgbuild_parser.remove_quotes(cadena_con_comillas)
     print(f"Cadena original: {cadena_con_comillas}")
     print(f"Cadena sin comillas: {cadena_sin_comillas}")
-except pkgbuild_parser.ParserKeyError as e:
+except (pkgbuild_parser.ParserKeyError, pkgbuild_parser.ParserNoneTypeError) as e:
     print(e)
 ```
 
@@ -100,8 +108,10 @@ Si el archivo PKGBUILD no existe, se lanza un `ParserFileError`, que debe ser ca
 
 También puede ocurrir que se lanza un `ParserKeyError` en caso de que la obtención de un valor del PKGBUILD falle, por ejemplo, si license no está bien declarado, y se hace get_license() se producirá dicha excepción.
 
+Desde la versión 0.2.0, también se puede lanzar un `ParserNoneTypeError` si una función retorna `None` cuando no se esperaba.
+
 ## Limitaciones
 
-- Actualmente **no soporta parsing de arrays o listas complejas**, como `depends`, `makedepends` o `provides` en múltiples líneas.  
-- El objetivo del módulo es extraer únicamente **información básica** de PKGBUILD estándar.  
+- Actualmente **no soporta parsing de arrays o listas complejas**, como `depends`, `makedepends` o `provides` en múltiples líneas.
+- El objetivo del módulo es extraer únicamente **información básica** de PKGBUILD estándar.
 - Funciona mejor con PKGBUILD que siguen las normas de la **Arch Wiki**.

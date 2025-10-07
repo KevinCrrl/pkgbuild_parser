@@ -1,6 +1,7 @@
 __pycache__/
 PKGBUILD**
-base_info.json
+**.json
 usar_parser.py
 dist/
 pkgbuild_parser.egg-info/
+pyrefly.toml
