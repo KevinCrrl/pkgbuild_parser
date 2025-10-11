@@ -1,6 +1,6 @@
 # Licencia: MIT 2025 KevinCrrl
 # Módulo sencillo para obtener datos básicos de un PKGBUILD.
-# Versión 0.3.0
+# Versión 0.3.1
 # Documentación en https://github.com/KevinCrrl/pkgbuild_parser/blob/main/README.md
 
 import json
@@ -14,7 +14,9 @@ class ParserKeyError(Exception):
 class ParserNoneTypeError(Exception):
     pass
 
-def remove_quotes(string :str) -> str:
+def remove_quotes(string) -> list[str] | str:
+    if type(string) == list:
+        return string
     new_string = ""
     for char in string:
         if char != "'" and char != '"':
@@ -38,7 +40,7 @@ class Parser:
                 list_of_lines.append(line.split("=")[1].lstrip("(").rstrip(" "))
                 key_found = True
             if key_found and ")" in list_of_lines[0]:
-                list_of_lines[0] = list_of_lines[0].rstrip(")")
+                list_of_lines = list_of_lines[0].rstrip(")").split()
                 break
             if key_found and ")" not in line and key not in line:
                 list_of_lines.append(line.split("#")[0].strip())
@@ -77,7 +79,7 @@ class Parser:
         return self.get_base("pkgdesc")
 
     def get_arch(self):
-        return self.get_base("arch")
+        return self.multiline("arch")
 
     def get_url(self):
         return self.get_base("url")
@@ -128,9 +130,6 @@ class Parser:
             return f"{name}-{remove_quotes(self.get_epoch())}:{version}"
         except ParserNoneTypeError:
             return f"{name}-{version}"
-
-    def get_list_arch(self):
-        return remove_quotes(self.get_arch()).split()
 
     def get_depends(self):
         return self.multiline("depends")

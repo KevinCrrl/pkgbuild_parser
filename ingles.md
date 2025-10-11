@@ -4,7 +4,7 @@
 
 **pkgbuild_parser** is a module written in **Python** (compatible with Python 3.x) designed to extract basic information from an **Arch Linux PKGBUILD**.The main purpose of this module is to provide easy and direct access to the most important fields of a PKGBUILD without relying on external tools or additional libraries.
 
-- **Version:** 0.3.0
+- **Version:** 0.3.1
 - **License:** MIT 2025 KevinCrrl
 - **Dependencies:** None
 - **Style:** Simplicity, no external dependencies, easy to use
@@ -23,7 +23,7 @@ Although internally the module has helper functions (`get_base`), the **user onl
 | `get_pkgver()`                                      | Returns the package version (`pkgver`) as a string.                                                     |
 | `get_pkgrel()`                                      | Returns the release number (`pkgrel`) as a string.                                                      |
 | `get_pkgdesc()`                                     | Returns the package description (`pkgdesc`) as a string, removing comments and unnecessary parentheses. |
-| `get_arch()`                                        | Returns the package architecture (`arch`) as a string.                                                  |
+| `get_arch()`                                        | Returns the package architecture (`arch`) as a list of strings.                                                  |
 | `get_url()`                                         | Returns the main project URL (`url`) as a string.                                                       |
 | `get_license()`                                     | Returns the package license (`license`) as a string, without extra comments or parentheses.             |
 | `get_source()`                                      | Returns the package source(s) (`source`) as a list of strings.                                          |
@@ -36,7 +36,6 @@ Although internally the module has helper functions (`get_base`), the **user onl
 | `write_base_info_to_json_without_quotes(json_name)` | Writes the base information to a JSON file without quotes in its values.                                  |
 | `get_epoch()`                                       | Returns the package `epoch`.                                                                            |
 | `get_full_package_name()`                           | Returns the full package name, including `epoch`, version and `pkgrel`.                               | 
-| `get_list_arch()`                                   | Returns a list of the package architectures.                                                            |
 | `get_depends()`                                     | Returns a list of the package dependencies.                                                             |
 | `get_makedepends()`                                 | Returns a list of the package build dependencies.                                                       |
 | `get_optdepends()`                                  | Returns a list of the package optional dependencies.                                                    |
@@ -85,7 +84,6 @@ try:
     print(my_pkgbuild.get_source())
     print(my_pkgbuild.get_epoch())
     print(my_pkgbuild.get_full_package_name())
-    print(my_pkgbuild.get_list_arch())
     print(my_pkgbuild.get_depends())
     print(my_pkgbuild.get_makedepends())
     print(my_pkgbuild.get_optdepends())

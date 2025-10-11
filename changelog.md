@@ -1,5 +1,16 @@
 # Changelog
 
+## Versión 0.3.1 (2025-10-11)
+
+### Correcciones
+
+- **Soporte para arrays en una sola línea**: Se ha corregido un error en la función `multiline(key)` que impedía que los arrays declarados en una sola línea en el PKGBUILD se procesaran correctamente. Ahora, la función puede extraer valores de arrays tanto multilínea como de una sola línea.
+- **`get_arch()` ahora devuelve una lista**: La función `get_arch()` ahora utiliza `multiline()` y devuelve una lista de arquitecturas, en lugar de un string.
+
+### Cambios deprecados
+
+- **`get_list_arch()` eliminado**: Esta función ha sido eliminada, ya que `get_arch()` ahora devuelve una lista directamente.
+
 ## Versión 0.3.0 (2025-10-09)
 
 ### Nuevas características
