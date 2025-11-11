@@ -3,5 +3,9 @@ PKGBUILD**
 **.json
 usar_parser.py
 dist/
+build/
 pkgbuild_parser.egg-info/
 pyrefly.toml
+.SRCINFO
+msrc.py
+srcinfo

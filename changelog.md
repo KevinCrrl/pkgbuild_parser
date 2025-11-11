@@ -1,5 +1,24 @@
 # Changelog
 
+## Versión 0.4.0 (2025-11-11)
+
+### Nuevas características
+
+- **Nuevas funciones para el usuario**:
+  - `optdepends_to_json()`: Retorna un JSON de las dependencias opcionales del paquete.
+  - `write_optdepends_to_json()`: Escribe en un JSON las dependencias opcionales del paquete.
+  - `get_options()`: Retorna una lista de las opciones del paquete.
+  - `get_checkdepends()`: Retorna una lista de las dependencias de verificación del paquete.
+
+### Mejoras
+
+- **`get_license()` mejorado**: Ahora devuelve una lista de licencias, gracias a la nueva capacidad de `multiline()`.
+- **`get_epoch()` mejorado**: Ahora usa `none_prevention` para evitar que la función devuelva `None` cuando no se esperaba, en su lugar, ahora devuelve un `ParserNoneTypeError`.
+
+### Cambios estructurales
+
+- **El proyecto ahora es un paquete**: El proyecto ha sido reestructurado de un solo archivo a un paquete de Python. Esto mejora la modularidad y la capacidad de mantenimiento.
+
 ## Versión 0.3.1 (2025-10-11)
 
 ### Correcciones

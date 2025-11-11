@@ -7,7 +7,7 @@
 
 **pkgbuild_parser** es un módulo escrito en **Python** (compatible con Python 3.x) diseñado para extraer información básica de un **PKGBUILD** de Arch Linux.El propósito principal de este módulo es proporcionar un acceso sencillo y directo a los campos más importantes de un PKGBUILD sin depender de herramientas externas ni librerías adicionales.
 
-- **Versión:** 0.3.1
+- **Versión:** 0.4.0
 - **Licencia:** MIT 2025 KevinCrrl
 - **Dependencias:** Ninguna
 - **Estilo:** Simplicidad, sin dependencias externas, fácil de usar
@@ -28,7 +28,7 @@ Aunque internamente el módulo tiene funciones de soporte (`get_base`), el **usu
 | `get_pkgdesc()`                                     | Retorna la descripción del paquete (`pkgdesc`) como string, eliminando comentarios y paréntesis innecesarios. |
 | `get_arch()`                                        | Retorna la arquitectura del paquete (`arch`) como una lista de strings.                                                       |
 | `get_url()`                                         | Retorna la URL principal del proyecto (`url`) como string.                                                      |
-| `get_license()`                                     | Retorna la licencia del paquete (`license`) como string, sin comentarios ni paréntesis extra.                  |
+| `get_license()`                                     | Retorna la licencia del paquete (`license`) como una lista de strings.                  |
 | `get_source()`                                      | Retorna la(s) fuente(s) (`source`) del paquete como una lista de strings.                                       |
 | `get_dict_base_info()`                              | Retorna un diccionario con todos los campos anteriores en formato `{'pkgname': ..., 'pkgver': ..., ...}`.       |
 | `base_info_to_json()`                               | Retorna la información base en formato**JSON** con indentación y codificación UTF-8.                     |
@@ -43,6 +43,10 @@ Aunque internamente el módulo tiene funciones de soporte (`get_base`), el **usu
 | `get_makedepends()`                                 | Retorna una lista de las dependencias de compilación del paquete.                                               |
 | `get_optdepends()`                                  | Retorna una lista de las dependencias opcionales del paquete.                                                   |
 | `get_dict_optdepends()`                             | Retorna un diccionario de las dependencias opcionales del paquete.                                              |
+| `optdepends_to_json()`                              | Retorna un JSON de las dependencias opcionales del paquete.                                                     |
+| `write_optdepends_to_json()`                        | Escribe en un JSON las dependencias opcionales del paquete.                                                     |
+| `get_options()`                                     | Retorna una lista de las opciones del paquete.                                                                  |
+| `get_checkdepends()`                                | Retorna una lista de las dependencias de verificación del paquete.                                              |
 
 **Nota:** Las funciones internas (`get_base` y `multiline`) están pensadas para uso del módulo y **no necesita ser usada por el usuario**.
 
@@ -60,7 +64,7 @@ Si deseas construirlo manually:
 
 ```bash
 python -m build
-python -m installer --destdir=/ruta/de/instalacion dist/*.whl
+pip install .
 ```
 
 ## Uso básico
@@ -91,6 +95,10 @@ try:
     print(mi_pkgbuild.get_makedepends())
     print(mi_pkgbuild.get_optdepends())
     print(mi_pkgbuild.get_dict_optdepends())
+    print(mi_pkgbuild.optdepends_to_json())
+    mi_pkgbuild.write_optdepends_to_json()
+    print(mi_pkgbuild.get_options())
+    print(mi_pkgbuild.get_checkdepends())
 
     # Obtener un diccionario de toda la info
     info = mi_pkgbuild.get_dict_base_info()
@@ -123,4 +131,4 @@ Desde la versión 0.2.0, también se puede lanzar un `ParserNoneTypeError` si un
 
 - El objetivo del módulo es extraer únicamente **información básica** de PKGBUILD estándar.
 - Funciona mejor con PKGBUILD que siguen las normas de la **Arch Wiki**.
-- Desde la versión 0.3.0, el módulo puede extraer información de arrays o listas, como `depends`, `makedepends`, `source` y `optdepends`.
+- Desde la versión 0.4.0, el módulo puede extraer información de arrays o listas, como `depends`, `makedepends`, `source`, `optdepends`, `license`, `options` y `checkdepends`.
