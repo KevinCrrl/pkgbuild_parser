@@ -39,7 +39,12 @@ class ParserCore:
                 list_of_lines.append(line.split("=")[1].lstrip("(").rstrip(" ")) # new line example: one_package: one_desc) or package: desc
                 key_found = True
             if key_found and ")" in list_of_lines[0]:
-                list_of_lines[0] = list_of_lines[0].rstrip(")")
+                # Fix for optdepends arrays
+                if ":" in list_of_lines[0]:
+                    list_of_lines = list_of_lines[0].rstrip(")").split(":")
+                else:
+                    list_of_lines = list_of_lines[0].rstrip(")").split()
+                list_of_lines = [package.strip() for package in list_of_lines] # Quit spaces
                 break
             if key_found and ")" not in line and key not in line:
                 list_of_lines.append(line.split("#")[0].strip())

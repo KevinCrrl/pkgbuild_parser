@@ -1,6 +1,6 @@
 # Licencia: MIT 2025 KevinCrrl
 # Simple Python module to extract basic information directly from PKGBUILD files (not .SRCINFO)
-# Versión 0.4.0
+# Versión 0.4.1
 # Documentación en https://github.com/KevinCrrl/pkgbuild_parser/blob/main/README.md
 
 from pkgbuild_parser.parser_core import *

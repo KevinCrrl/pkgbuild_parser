@@ -7,7 +7,7 @@
 
 **pkgbuild_parser** es un módulo escrito en **Python** (compatible con Python 3.x) diseñado para extraer información básica de un **PKGBUILD** de Arch Linux.El propósito principal de este módulo es proporcionar un acceso sencillo y directo a los campos más importantes de un PKGBUILD sin depender de herramientas externas ni librerías adicionales.
 
-- **Versión:** 0.4.0
+- **Versión:** 0.4.1
 - **Licencia:** MIT 2025 KevinCrrl
 - **Dependencias:** Ninguna
 - **Estilo:** Simplicidad, sin dependencias externas, fácil de usar
@@ -26,27 +26,27 @@ Aunque internamente el módulo tiene funciones de soporte (`get_base`), el **usu
 | `get_pkgver()`                                      | Retorna la versión del paquete (`pkgver`) como string.                                                         |
 | `get_pkgrel()`                                      | Retorna el número de release (`pkgrel`) como string.                                                           |
 | `get_pkgdesc()`                                     | Retorna la descripción del paquete (`pkgdesc`) como string, eliminando comentarios y paréntesis innecesarios. |
-| `get_arch()`                                        | Retorna la arquitectura del paquete (`arch`) como una lista de strings.                                                       |
+| `get_arch()`                                        | Retorna la arquitectura del paquete (`arch`) como una lista de strings.                                         |
 | `get_url()`                                         | Retorna la URL principal del proyecto (`url`) como string.                                                      |
-| `get_license()`                                     | Retorna la licencia del paquete (`license`) como una lista de strings.                  |
+| `get_license()`                                     | Retorna la licencia del paquete (`license`) como una lista de strings.                                          |
 | `get_source()`                                      | Retorna la(s) fuente(s) (`source`) del paquete como una lista de strings.                                       |
 | `get_dict_base_info()`                              | Retorna un diccionario con todos los campos anteriores en formato `{'pkgname': ..., 'pkgver': ..., ...}`.       |
 | `base_info_to_json()`                               | Retorna la información base en formato**JSON** con indentación y codificación UTF-8.                     |
 | `write_base_info_to_json(json_name)`                | Escribe la información base en un archivo JSON con nombre `json_name`.                                         |
 | `remove_quotes(string)`                             | Elimina las comillas de un string.                                                                                |
 | `get_dict_base_info_without_quotes()`               | Retorna un diccionario con la información base pero sin comillas en sus valores.                                 |
-| `base_info_to_json_without_quotes()`                | Retorna la información base en formato **JSON** sin comillas en sus valores.                              |
+| `base_info_to_json_without_quotes()`                | Retorna la información base en formato**JSON** sin comillas en sus valores.                                |
 | `write_base_info_to_json_without_quotes(json_name)` | Escribe la información base en un archivo JSON sin comillas en sus valores.                                      |
 | `get_epoch()`                                       | Retorna la `epoch` del paquete.                                                                                 |
 | `get_full_package_name()`                           | Retorna el nombre completo del paquete, incluyendo `epoch`, versión y `pkgrel`.                              |
-| `get_depends()`                                     | Retorna una lista de las dependencias del paquete.                                                              |
-| `get_makedepends()`                                 | Retorna una lista de las dependencias de compilación del paquete.                                               |
-| `get_optdepends()`                                  | Retorna una lista de las dependencias opcionales del paquete.                                                   |
-| `get_dict_optdepends()`                             | Retorna un diccionario de las dependencias opcionales del paquete.                                              |
-| `optdepends_to_json()`                              | Retorna un JSON de las dependencias opcionales del paquete.                                                     |
-| `write_optdepends_to_json()`                        | Escribe en un JSON las dependencias opcionales del paquete.                                                     |
-| `get_options()`                                     | Retorna una lista de las opciones del paquete.                                                                  |
-| `get_checkdepends()`                                | Retorna una lista de las dependencias de verificación del paquete.                                              |
+| `get_depends()`                                     | Retorna una lista de las dependencias del paquete.                                                                |
+| `get_makedepends()`                                 | Retorna una lista de las dependencias de compilación del paquete.                                                |
+| `get_optdepends()`                                  | Retorna una lista de las dependencias opcionales del paquete.                                                     |
+| `get_dict_optdepends()`                             | Retorna un diccionario de las dependencias opcionales del paquete.                                                |
+| `optdepends_to_json()`                              | Retorna un JSON de las dependencias opcionales del paquete.                                                       |
+| `write_optdepends_to_json()`                        | Escribe en un JSON las dependencias opcionales del paquete.                                                       |
+| `get_options()`                                     | Retorna una lista de las opciones del paquete.                                                                    |
+| `get_checkdepends()`                                | Retorna una lista de las dependencias de verificación del paquete.                                               |
 
 **Nota:** Las funciones internas (`get_base` y `multiline`) están pensadas para uso del módulo y **no necesita ser usada por el usuario**.
 

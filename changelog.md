@@ -1,5 +1,11 @@
 # Changelog
 
+## Versión 0.4.1 (2025-11-19)
+
+### Correcciones
+
+- **Corrección de `optdepends`**: Se ha corregido un error en la función `multiline(key)` que impedía que los arrays declarados en una sola línea en el PKGBUILD se procesaran correctamente. Ahora, la función puede extraer valores de arrays tanto multilínea como de una sola línea.
+
 ## Versión 0.4.0 (2025-11-11)
 
 ### Nuevas características

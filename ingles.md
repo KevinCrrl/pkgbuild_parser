@@ -4,7 +4,7 @@
 
 **pkgbuild_parser** is a module written in **Python** (compatible with Python 3.x) designed to extract basic information from an **Arch Linux PKGBUILD**.The main purpose of this module is to provide easy and direct access to the most important fields of a PKGBUILD without relying on external tools or additional libraries.
 
-- **Version:** 0.4.0
+- **Version:** 0.4.1
 - **License:** MIT 2025 KevinCrrl
 - **Dependencies:** None
 - **Style:** Simplicity, no external dependencies, easy to use
@@ -23,27 +23,27 @@ Although internally the module has helper functions (`get_base`), the **user onl
 | `get_pkgver()`                                      | Returns the package version (`pkgver`) as a string.                                                     |
 | `get_pkgrel()`                                      | Returns the release number (`pkgrel`) as a string.                                                      |
 | `get_pkgdesc()`                                     | Returns the package description (`pkgdesc`) as a string, removing comments and unnecessary parentheses. |
-| `get_arch()`                                        | Returns the package architecture (`arch`) as a list of strings.                                                  |
+| `get_arch()`                                        | Returns the package architecture (`arch`) as a list of strings.                                         |
 | `get_url()`                                         | Returns the main project URL (`url`) as a string.                                                       |
-| `get_license()`                                     | Returns the package license (`license`) as a list of strings.             |
+| `get_license()`                                     | Returns the package license (`license`) as a list of strings.                                           |
 | `get_source()`                                      | Returns the package source(s) (`source`) as a list of strings.                                          |
 | `get_dict_base_info()`                              | Returns a dictionary with all the previous fields in the format `{'pkgname': ..., 'pkgver': ..., ...}`. |
 | `base_info_to_json()`                               | Returns the base information in**JSON** format with indentation and UTF-8 encoding.                 |
 | `write_base_info_to_json(json_name)`                | Writes the base information to a JSON file named `json_name`.                                           |
 | `remove_quotes(string)`                             | Removes quotes from a string.                                                                             |
 | `get_dict_base_info_without_quotes()`               | Returns a dictionary with the base information but without quotes in its values.                          |
-| `base_info_to_json_without_quotes()`                | Returns the base information in **JSON** format without quotes in its values.                      |
+| `base_info_to_json_without_quotes()`                | Returns the base information in**JSON** format without quotes in its values.                        |
 | `write_base_info_to_json_without_quotes(json_name)` | Writes the base information to a JSON file without quotes in its values.                                  |
 | `get_epoch()`                                       | Returns the package `epoch`.                                                                            |
 | `get_full_package_name()`                           | Returns the full package name, including `epoch`, version and `pkgrel`.                               |
-| `get_depends()`                                     | Returns a list of the package dependencies.                                                             |
-| `get_makedepends()`                                 | Returns a list of the package build dependencies.                                                       |
-| `get_optdepends()`                                  | Returns a list of the package optional dependencies.                                                    |
-| `get_dict_optdepends()`                             | Returns a dictionary of the package optional dependencies.                                              |
-| `optdepends_to_json()`                              | Returns a JSON of the package optional dependencies.                                                     |
-| `write_optdepends_to_json()`                        | Writes in a JSON the optional dependencies of the package.                                                     |
-| `get_options()`                                     | Returns a list of the package options.                                                                  |
-| `get_checkdepends()`                                | Returns a list of the package check dependencies.                                              |
+| `get_depends()`                                     | Returns a list of the package dependencies.                                                               |
+| `get_makedepends()`                                 | Returns a list of the package build dependencies.                                                         |
+| `get_optdepends()`                                  | Returns a list of the package optional dependencies.                                                      |
+| `get_dict_optdepends()`                             | Returns a dictionary of the package optional dependencies.                                                |
+| `optdepends_to_json()`                              | Returns a JSON of the package optional dependencies.                                                      |
+| `write_optdepends_to_json()`                        | Writes in a JSON the optional dependencies of the package.                                                |
+| `get_options()`                                     | Returns a list of the package options.                                                                    |
+| `get_checkdepends()`                                | Returns a list of the package check dependencies.                                                         |
 
 **Note:** The internal functions (`get_base` and `multiline`) are intended for module use and **does not need to be used by the user**.
 
