@@ -1,5 +1,28 @@
 # Changelog
 
+## Versión 1.0.0 (2025-12-03)
+
+### Cambios Rompedores (Breaking Changes)
+
+- **Eliminación de funciones `*_without_quotes`**: Se han eliminado las siguientes funciones, ya que el comportamiento de eliminar comillas ahora está integrado por defecto:
+  - `get_dict_base_info_without_quotes()`
+  - `base_info_to_json_without_quotes()`
+  - `write_base_info_to_json_without_quotes()`
+- **Comillas eliminadas por defecto**: Las funciones que devuelven un solo valor de texto (como `get_pkgname`, `get_pkgdesc`, etc.) ahora eliminan las comillas dobles o simples del valor de forma predeterminada.
+
+### Nuevas características
+
+- **Nuevas funciones para sumas de verificación y claves PGP**:
+  - `get_sha256sums()`: Retorna una lista de las sumas de verificación sha256.
+  - `get_sha512sums()`: Retorna una lista de las sumas de verificación sha512.
+  - `get_validpgpkeys()`: Retorna una lista de las claves PGP válidas.
+
+### Mejoras y Correcciones
+
+- **Análisis de arrays mejorado**: Se ha refactorizado la lógica interna (`multiline`) para analizar variables de tipo array en los `PKGBUILD`. Ahora es más robusta y compatible con diferentes estilos de formato, incluyendo paquetes en la misma línea separados por espacios.
+- **Calidad del código**: Se han añadido `type hints` a las funciones para mejorar la legibilidad y facilitar el mantenimiento.
+- **Refactorización interna**: Mejoras generales en la estructura y eficiencia del código.
+
 ## Versión 0.4.1 (2025-11-19)
 
 ### Correcciones

@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pkgbuild-parser"
 authors  = [{name = "KevinCrrl"}]
-version = "0.4.1"
+version = "1.0.0"
 dependencies = []
 description = "Simple Python module to extract basic information directly from PKGBUILD files (not .SRCINFO)"
 license  = {text = "MIT"}

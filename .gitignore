@@ -10,3 +10,4 @@ pyrefly.toml
 msrc.py
 srcinfo
 **.sh
+**.txt

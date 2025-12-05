@@ -1,5 +1,4 @@
 # Licencia: MIT 2025 KevinCrrl
-# Módulo sencillo para obtener datos básicos de un PKGBUILD.
 
 class ParserFileError(Exception):
     pass
@@ -15,7 +14,7 @@ def remove_quotes(string) -> list[str] | str:
         return string
     new_string = ""
     for char in string:
-        if char != "'" and char != '"':
+        if char not in ("'", '"'):
             new_string += char
     return new_string
 
@@ -35,19 +34,30 @@ class ParserCore:
             # or
             # line example: optdepends=('one_package: one_desc') # comment
             line: str = remove_quotes(line.split("#")[0].strip()) # new line example: optdepends=(one_package: one_desc) or optdepends=(package: desc
-            if not key_found and key in line:
-                list_of_lines.append(line.split("=")[1].lstrip("(").rstrip(" ")) # new line example: one_package: one_desc) or package: desc
+            if not key_found and key in line: # key discovered
+                # fix for depends and makedepends
+                if " " in line and ":" not in line:
+                    list_of_lines = line.split()
+                    list_of_lines[0] = list_of_lines[0].split("=(")[1]
+                else:
+                    list_of_lines.append(line.split("=")[1].lstrip("(").rstrip(" ")) # new line example: one_package: one_desc) or package: desc
                 key_found = True
             if key_found and ")" in list_of_lines[0]:
                 # Fix for optdepends arrays
                 if ":" in list_of_lines[0]:
-                    list_of_lines = list_of_lines[0].rstrip(")").split(":")
+                    list_of_lines[0] = list_of_lines[0].rstrip(")")
                 else:
                     list_of_lines = list_of_lines[0].rstrip(")").split()
                 list_of_lines = [package.strip() for package in list_of_lines] # Quit spaces
                 break
+            if key_found and ")" in list_of_lines[-1:][0]: # Only for depends and makedepends
+                list_of_lines[-1:] = list_of_lines[-1:][0].strip(")")
             if key_found and ")" not in line and key not in line:
-                list_of_lines.append(line.split("#")[0].strip())
+                if " " in line and ":" not in line:
+                    for package in line.split():
+                        list_of_lines.append(package)
+                else:
+                    list_of_lines.append(line.split("#")[0].strip())
             if key_found and ")" in line:
                 list_of_lines.append(line.strip().rstrip(")"))
                 break
@@ -64,7 +74,9 @@ class ParserCore:
                     # line example: pkgdesc=("desc here") # packager's comment
                     # line.split("=")[1].strip() example: ("desc here") # packager's comment
                     # line.split("=")[1].strip().split("#")[0].lstrip("(").rstrip(") ") example: "package info"
-                    return line.split("=")[1].strip().split("#")[0].lstrip("(").rstrip(") ")
+                    return remove_quotes(
+                        line.split("=")[1].strip().split("#")[0].lstrip("(").rstrip(") ")
+                        )
         except IndexError as exc:
             raise ParserKeyError(f"{key} not found in PKGBUILD") from exc
         except AttributeError as exc:
