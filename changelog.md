@@ -1,5 +1,12 @@
 # Changelog
 
+## Versión 1.0.1 (2025-12-22)
+
+### Correcciones
+
+- Corregido error en la función principal multiline que hacía un mal parseo de listas y strings lo que producía resultados separados y altamente incorrectos.
+- Corregido error en la función principal multiline que hacía continuar a la función cuando el parseo se debía terminar, lo que producía resultados repetidos o altamente incorrectos.
+
 ## Versión 1.0.0 (2025-12-03)
 
 ### Cambios Rompedores (Breaking Changes)
