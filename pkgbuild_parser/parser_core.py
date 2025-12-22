@@ -50,8 +50,9 @@ class ParserCore:
                     list_of_lines = list_of_lines[0].rstrip(")").split()
                 list_of_lines = [package.strip() for package in list_of_lines] # Quit spaces
                 break
-            if key_found and ")" in list_of_lines[-1:][0]: # Only for depends and makedepends
-                list_of_lines[-1:] = list_of_lines[-1:][0].strip(")")
+            if key_found and ")" in list_of_lines[-1]: # Only for depends and makedepends
+                list_of_lines[-1] = list_of_lines[-1].strip(")")
+                break
             if key_found and ")" not in line and key not in line:
                 if " " in line and ":" not in line:
                     for package in line.split():

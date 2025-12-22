@@ -1,6 +1,6 @@
 # License: MIT 2025 KevinCrrl
 # Python module to extract information directly from PKGBUILD files (not .SRCINFO)
-# Version 1.0.0
+# Version 1.0.1
 # Docs: https://github.com/KevinCrrl/pkgbuild_parser/blob/main/README.md
 
 from pkgbuild_parser.parser_core import *
