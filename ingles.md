@@ -66,6 +66,10 @@ python -m build
 pip install .
 ```
 
+### Option 3: Personal repositorie
+
+You can use pkgbuild-parser in testing systems using [https://blackarch-archtesting-kevincrrl-2dc675.gitlab.io/blackarch-archtesting-kevincrrl/os/x86_64/](my personal repositorie) with the package ready to install with pacman.
+
 ## Basic usage
 
 ```python
