@@ -1,65 +1,64 @@
 # pkgbuild_parser
 
-[English documentation (GitHub)](https://github.com/KevinCrrl/pkgbuild_parser/blob/main/ingles.md)
-[English documentation (Codeberg)](https://codeberg.org/KevinCrrl/pkgbuild_parser/src/branch/main/ingles.md)
+[Documentation in Spanish](https://kevincrrl.github.io/KevinCrrl/documentacion/pkgbuild_parser.html)
 
-## Introducción
+## Introduction
 
-**pkgbuild_parser** es un módulo escrito en **Python** (compatible con Python 3.x) diseñado para extraer información de un **PKGBUILD**. El propósito principal de este módulo es proporcionar un acceso sencillo y directo a los campos más importantes de un PKGBUILD sin depender de herramientas externas ni librerías adicionales.
+**pkgbuild_parser** is a module written in **Python** (compatible with Python 3.x) designed to extract information from a **PKGBUILD**. The main purpose of this module is to provide simple and direct access to the most important fields of a PKGBUILD without relying on external tools or additional libraries.
 
-- **Versión:** 1.0.1
-- **Licencia:** MIT 2025 KevinCrrl
-- **Dependencias:** Ninguna
-- **Estilo:** Simplicidad, sin dependencias externas, fácil de usar
+- **Version:** 1.0.1
+- **License:** MIT 2025 KevinCrrl
+- **Dependencies:** None
+- **Style:** Simplicity, no external dependencies, easy to use
 
-Este módulo permite obtener datos como el nombre del paquete, versión, descripción, licencia, URL y archivo fuente de manera rápida y directa.
-
----
-
-## Funciones principales para el usuario
-
-Aunque internamente el módulo tiene funciones de soporte (`get_base`), el **usuario solo necesita usar las funciones de alto nivel**, que son claras y directas:
-
-| Función                               | Descripción                                                                                                      |
-| -------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `get_pkgname()`                      | Retorna el nombre del paquete (`pkgname`) como string.                                                          |
-| `get_pkgver()`                       | Retorna la versión del paquete (`pkgver`) como string.                                                         |
-| `get_pkgrel()`                       | Retorna el número de release (`pkgrel`) como string.                                                           |
-| `get_pkgdesc()`                      | Retorna la descripción del paquete (`pkgdesc`) como string, eliminando comentarios y paréntesis innecesarios. |
-| `get_arch()`                         | Retorna la arquitectura del paquete (`arch`) como una lista de strings.                                         |
-| `get_url()`                          | Retorna la URL principal del proyecto (`url`) como string.                                                      |
-| `get_license()`                      | Retorna la licencia del paquete (`license`) como una lista de strings.                                          |
-| `get_source()`                       | Retorna la(s) fuente(s) (`source`) del paquete como una lista de strings.                                       |
-| `get_dict_base_info()`               | Retorna un diccionario con todos los campos anteriores en formato `{'pkgname': ..., 'pkgver': ..., ...}`.       |
-| `base_info_to_json()`                | Retorna la información base en formato **JSON** con indentación y codificación UTF-8.                   |
-| `write_base_info_to_json(json_name)` | Escribe la información base en un archivo JSON con nombre `json_name`.                                         |
-| `get_epoch()`                        | Retorna la `epoch` del paquete.                                                                                 |
-| `get_full_package_name()`            | Retorna el nombre completo del paquete, incluyendo `epoch`, versión y `pkgrel`.                              |
-| `get_depends()`                      | Retorna una lista de las dependencias del paquete.                                                                |
-| `get_makedepends()`                  | Retorna una lista de las dependencias de compilación del paquete.                                                |
-| `get_optdepends()`                   | Retorna una lista de las dependencias opcionales del paquete.                                                     |
-| `get_dict_optdepends()`              | Retorna un diccionario de las dependencias opcionales del paquete.                                                |
-| `optdepends_to_json()`               | Retorna un JSON de las dependencias opcionales del paquete.                                                       |
-| `write_optdepends_to_json()`         | Escribe en un JSON las dependencias opcionales del paquete.                                                       |
-| `get_options()`                      | Retorna una lista de las opciones del paquete.                                                                    |
-| `get_checkdepends()`                 | Retorna una lista de las dependencias de verificación del paquete.                                               |
-| `get_sha256sums()`                   | Retorna una lista de las sumas de verificación sha256.                                                           |
-| `get_sha512sums()`                   | Retorna una lista de las sumas de verificación sha512.                                                           |
-| `get_validpgpkeys()`                 | Retorna una lista de las llaves PGP validas.                                                                      |
-
-**Nota:** Las funciones internas (`get_base` y `multiline`) están pensadas para uso del módulo y **no necesitan ser usadas por el usuario**.
+This module allows you to quickly and directly obtain data such as package name, version, description, license, URL, and source file.
 
 ---
 
-## Instalación y uso
+## Main functions for the user
 
-### Opción 1: AUR
+Although the module internally has support functions (`get_base`), the **user only needs to use the high-level functions**, which are clear and direct:
 
-El módulo está disponible en el AUR como **`python-pkgbuild-parser`**:
+| Function                               | Description                                                                                               |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `get_pkgname()`                      | Returns the package name (`pkgname`) as a string.                                                       |
+| `get_pkgver()`                       | Returns the package version (`pkgver`) as a string.                                                     |
+| `get_pkgrel()`                       | Returns the release number (`pkgrel`) as a string.                                                      |
+| `get_pkgdesc()`                      | Returns the package description (`pkgdesc`) as a string, removing unnecessary comments and parentheses. |
+| `get_arch()`                         | Returns the package architecture (`arch`) as a list of strings.                                         |
+| `get_url()`                          | Returns the main project URL (`url`) as a string.                                                       |
+| `get_license()`                      | Returns the package license (`license`) as a list of strings.                                           |
+| `get_source()`                       | Returns the package source(s) (`source`) as a list of strings.                                          |
+| `get_dict_base_info()`               | Returns a dictionary with all the previous fields in the format `{'pkgname': ..., 'pkgver': ..., ...}`. |
+| `base_info_to_json()`                | Returns the base information in **JSON** format with indentation and UTF-8 encoding.               |
+| `write_base_info_to_json(json_name)` | Writes the base information to a JSON file named `json_name`.                                           |
+| `get_epoch()`                        | Returns the package `epoch`.                                                                            |
+| `get_full_package_name()`            | Returns the full package name, including `epoch`, version, and `pkgrel`.                              |
+| `get_depends()`                      | Returns a list of the package's dependencies.                                                             |
+| `get_makedepends()`                  | Returns a list of the package's build dependencies.                                                       |
+| `get_optdepends()`                   | Returns a list of the package's optional dependencies.                                                    |
+| `get_dict_optdepends()`              | Returns a dictionary of the package's optional dependencies.                                              |
+| `optdepends_to_json()`               | Returns a JSON of the package's optional dependencies.                                                    |
+| `write_optdepends_to_json()`         | Writes the package's optional dependencies to a JSON file.                                                |
+| `get_options()`                      | Returns a list of the package's options.                                                                  |
+| `get_checkdepends()`                 | Returns a list of the package's check dependencies.                                                       |
+| `get_sha256sums()`                   | Returns a list of the sha256 checksums.                                                                   |
+| `get_sha512sums()`                   | Returns a list of the sha512 checksums.                                                                   |
+| `get_validpgpkeys()`                 | Returns a list of the valid PGP keys.                                                                     |
 
-### Opción 2: Construcción manual
+**Note:** The internal functions (`get_base` and `multiline`) are intended for module use and **do not need to be used by the user**.
 
-Si deseas construirlo manualmente:
+---
+
+## Installation and use
+
+### Option 1: AUR
+
+The module is available on the AUR as **`python-pkgbuild-parser`**.
+
+### Option 2: Manual build
+
+If you want to build it manually:
 
 ```bash
 python -m build
@@ -67,67 +66,67 @@ pip install .
 ```
 
 
-## Uso básico
+## Basic usage
 
 ```python
 import pkgbuild_parser
 import sys
 
 try:
-    mi_pkgbuild = pkgbuild_parser.Parser("PKGBUILD")
+    my_pkgbuild = pkgbuild_parser.Parser("PKGBUILD")
 except pkgbuild_parser.ParserFileError as exc:
     print(exc)
     sys.exit(1)
 
-# Obtener datos básicos
+# Get basic data
 try:
-    print(mi_pkgbuild.get_pkgname())
-    print(mi_pkgbuild.get_pkgver())
-    print(mi_pkgbuild.get_pkgrel())
-    print(mi_pkgbuild.get_pkgdesc())
-    print(mi_pkgbuild.get_arch())
-    print(mi_pkgbuild.get_url())
-    print(mi_pkgbuild.get_license())
-    print(mi_pkgbuild.get_source())
-    print(mi_pkgbuild.get_epoch())
-    print(mi_pkgbuild.get_full_package_name())
-    print(mi_pkgbuild.get_depends())
-    print(mi_pkgbuild.get_makedepends())
-    print(mi_pkgbuild.get_optdepends())
-    print(mi_pkgbuild.get_dict_optdepends())
-    print(mi_pkgbuild.optdepends_to_json())
-    mi_pkgbuild.write_optdepends_to_json()
-    print(mi_pkgbuild.get_options())
-    print(mi_pkgbuild.get_checkdepends())
-    print(mi_pkgbuild.get_sha256sums())
-    print(mi_pkgbuild.get_sha512sums())
-    print(mi_pkgbuild.get_validpgpkeys())
+    print(my_pkgbuild.get_pkgname())
+    print(my_pkgbuild.get_pkgver())
+    print(my_pkgbuild.get_pkgrel())
+    print(my_pkgbuild.get_pkgdesc())
+    print(my_pkgbuild.get_arch())
+    print(my_pkgbuild.get_url())
+    print(my_pkgbuild.get_license())
+    print(my_pkgbuild.get_source())
+    print(my_pkgbuild.get_epoch())
+    print(my_pkgbuild.get_full_package_name())
+    print(my_pkgbuild.get_depends())
+    print(my_pkgbuild.get_makedepends())
+    print(my_pkgbuild.get_optdepends())
+    print(my_pkgbuild.get_dict_optdepends())
+    print(my_pkgbuild.optdepends_to_json())
+    my_pkgbuild.write_optdepends_to_json()
+    print(my_pkgbuild.get_options())
+    print(my_pkgbuild.get_checkdepends())
+    print(my_pkgbuild.get_sha256sums())
+    print(my_pkgbuild.get_sha512sums())
+    print(my_pkgbuild.get_validpgpkeys())
 
 
-    # Obtener un diccionario de toda la info
-    info = mi_pkgbuild.get_dict_base_info()
+    # Get a dictionary of all the info
+    info = my_pkgbuild.get_dict_base_info()
     print(info)
 
-    # Mostrar en formato JSON
-    print(mi_pkgbuild.base_info_to_json())
+    # Show in JSON format
+    print(my_pkgbuild.base_info_to_json())
 
-    # Obtener JSON y escribirlo a archivo
-    mi_pkgbuild.write_base_info_to_json("info.json")
+    # Get JSON and write it to a file
+    my_pkgbuild.write_base_info_to_json("info.json")
 except (pkgbuild_parser.ParserKeyError, pkgbuild_parser.ParserNoneTypeError) as e:
     print(e)
 ```
 
-## Manejo de errores
+## Error handling
 
-Si el archivo PKGBUILD no existe, se lanza un `ParserFileError`, que debe ser capturado para evitar que el programa falle.
+If the PKGBUILD file does not exist, a `ParserFileError` is raised, which must be caught to prevent the program from failing.
 
-También puede ocurrir que se lanza un `ParserKeyError` en caso de que la obtención de un valor del PKGBUILD falle, por ejemplo, si license no está bien declarado, y se hace get_license() se producirá dicha excepción.
+A `ParserKeyError` can also be raised if getting a value from the PKGBUILD fails, for example, if the license is not declared correctly, and `get_license()` is called, this exception will be raised.
 
-Desde la versión 0.2.0, también se puede lanzar un `ParserNoneTypeError` si una función retorna `None` cuando no se esperaba.
+Since version 0.2.0, a `ParserNoneTypeError` can also be raised if a function returns `None` when it was not expected.
 
-## Limitaciones
+## Limitations and additional notes
 
-- El objetivo del módulo es extraer únicamente **información básica** de PKGBUILD estándar, no puede reemplazar variables bash dentro de otra variable como por ejemplo si el source está declarado con el valor "$url/paquete.zip".
-- Funciona mejor con PKGBUILD que siguen las normas de la **Arch Wiki**.
-- Desde la versión 0.4.0, el módulo puede extraer información de arrays o listas, como `depends`, `makedepends`, `source`, `optdepends`, `license`, `options` y `checkdepends`.
-- Desde la versión 1.0.0 las funciones que retornan un string, por defecto ya no incluyen las comillas
+- The module's goal is to extract only **basic information** from standard PKGBUILDs, it cannot replace bash variables inside another variable, for example, if the source is declared with the value "$url/package.zip".
+- It works best with PKGBUILDs that follow the **Arch Wiki** standards.
+- Since version 0.4.0, the module can extract information from arrays or lists, such as `depends`, `makedepends`, `source`, `optdepends`, `license`, `options`, and `checkdepends`.
+- Since version 1.0.0, functions that return a string no longer include quotes by default.
