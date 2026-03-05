@@ -1,10 +1,11 @@
-# License: MIT 2025 KevinCrrl
+# License: MIT 2025-2026 KevinCrrl
 # Python module to extract information directly from PKGBUILD files (not .SRCINFO)
-# Version 1.0.1
+# Version 1.1.0
 # Docs: https://github.com/KevinCrrl/pkgbuild_parser/blob/main/README.md
 
-from pkgbuild_parser.parser_core import *
+from pkgbuild_parser.parser_core import ParserCore, ParserKeyError
 import json
+
 
 class Parser(ParserCore):
     def get_pkgname(self):
@@ -42,21 +43,30 @@ class Parser(ParserCore):
                 "source": self.get_source()}
 
     def base_info_to_json(self) -> str:
-        return json.dumps(self.get_dict_base_info(), ensure_ascii=False, indent=4)
+        return json.dumps(self.get_dict_base_info(),
+                          ensure_ascii=False, indent=4)
 
-    def write_base_info_to_json(self, json_name) -> None:
+    def write_base_info_to_json(self, json_name:
+                                str = "base_info.json") -> None:
         with open(json_name, 'w', encoding="utf-8") as f:
             f.write(self.base_info_to_json())
 
     def get_epoch(self):
-        return self.none_prevention("epoch")
+        return self.get_base("epoch")
+
+    def get_full_version(self) -> str:
+        version = f"{self.get_pkgver()}-{self.get_pkgrel()}"
+        try:
+            return f"{self.get_epoch()}:{version}"
+        except ParserKeyError:
+            return f"{version}"
 
     def get_full_package_name(self) -> str:
-        name = remove_quotes(self.get_pkgname())
-        version = f"{remove_quotes(self.get_pkgver())}-{remove_quotes(self.get_pkgrel())}"
+        name = self.get_pkgname()
+        version = f"{self.get_pkgver()}-{self.get_pkgrel()}"
         try:
-            return f"{name}-{remove_quotes(self.get_epoch())}:{version}"
-        except ParserNoneTypeError:
+            return f"{self.get_epoch()}:{name}-{version}"
+        except ParserKeyError:
             return f"{name}-{version}"
 
     def get_depends(self) -> list[str]:
@@ -76,15 +86,17 @@ class Parser(ParserCore):
         return opt_dict
 
     def optdepends_to_json(self) -> str:
-        return json.dumps(self.get_dict_optdepends(), ensure_ascii=False, indent=4)
+        return json.dumps(self.get_dict_optdepends(),
+                          ensure_ascii=False, indent=4)
 
-    def write_optdepends_to_json(self, json_name:str="optdepends.json") -> None:
+    def write_optdepends_to_json(self, json_name:
+                                str = "optdepends.json") -> None:
         with open(json_name, 'w', encoding="utf-8") as f:
             f.write(self.optdepends_to_json())
 
     def get_options(self):
-        return self.none_prevention("options")
-    
+        return self.get_base("options")
+
     def get_checkdepends(self) -> list[str]:
         return self.multiline("checkdepends")
 
@@ -95,4 +107,16 @@ class Parser(ParserCore):
         return self.multiline("sha512sums")
 
     def get_validpgpkeys(self) -> list[str]:
-        return self.multiline("validpgpkeys") 
+        return self.multiline("validpgpkeys")
+
+    def get_conflicts(self) -> list[str]:
+        return self.multiline("conflicts")
+
+    def get_provides(self) -> list[str]:
+        return self.multiline("provides")
+
+    def get_replaces(self) -> list[str]:
+        return self.multiline("replaces")
+
+    def get_pkgbase(self):
+        return self.get_base("pkgbase")

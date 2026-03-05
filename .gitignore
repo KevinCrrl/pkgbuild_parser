@@ -11,3 +11,5 @@ msrc.py
 srcinfo
 **.sh
 **.txt
+.idea/
+*.html

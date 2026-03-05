@@ -6,7 +6,7 @@
 
 **pkgbuild_parser** is a module written in **Python** (compatible with Python 3.x) designed to extract information from a **PKGBUILD**. The main purpose of this module is to provide simple and direct access to the most important fields of a PKGBUILD without relying on external tools or additional libraries.
 
-- **Version:** 1.0.1
+- **Version:** 1.1.0
 - **License:** MIT 2025 KevinCrrl
 - **Dependencies:** None
 - **Style:** Simplicity, no external dependencies, easy to use
@@ -19,34 +19,38 @@ This module allows you to quickly and directly obtain data such as package name,
 
 Although the module internally has support functions (`get_base`), the **user only needs to use the high-level functions**, which are clear and direct:
 
-| Function                               | Description                                                                                               |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `get_pkgname()`                      | Returns the package name (`pkgname`) as a string.                                                       |
-| `get_pkgver()`                       | Returns the package version (`pkgver`) as a string.                                                     |
-| `get_pkgrel()`                       | Returns the release number (`pkgrel`) as a string.                                                      |
-| `get_pkgdesc()`                      | Returns the package description (`pkgdesc`) as a string, removing unnecessary comments and parentheses. |
-| `get_arch()`                         | Returns the package architecture (`arch`) as a list of strings.                                         |
-| `get_url()`                          | Returns the main project URL (`url`) as a string.                                                       |
-| `get_license()`                      | Returns the package license (`license`) as a list of strings.                                           |
-| `get_source()`                       | Returns the package source(s) (`source`) as a list of strings.                                          |
-| `get_dict_base_info()`               | Returns a dictionary with all the previous fields in the format `{'pkgname': ..., 'pkgver': ..., ...}`. |
-| `base_info_to_json()`                | Returns the base information in **JSON** format with indentation and UTF-8 encoding.               |
-| `write_base_info_to_json(json_name)` | Writes the base information to a JSON file named `json_name`.                                           |
-| `get_epoch()`                        | Returns the package `epoch`.                                                                            |
-| `get_full_package_name()`            | Returns the full package name, including `epoch`, version, and `pkgrel`.                              |
-| `get_depends()`                      | Returns a list of the package's dependencies.                                                             |
-| `get_makedepends()`                  | Returns a list of the package's build dependencies.                                                       |
-| `get_optdepends()`                   | Returns a list of the package's optional dependencies.                                                    |
-| `get_dict_optdepends()`              | Returns a dictionary of the package's optional dependencies.                                              |
-| `optdepends_to_json()`               | Returns a JSON of the package's optional dependencies.                                                    |
-| `write_optdepends_to_json()`         | Writes the package's optional dependencies to a JSON file.                                                |
-| `get_options()`                      | Returns a list of the package's options.                                                                  |
-| `get_checkdepends()`                 | Returns a list of the package's check dependencies.                                                       |
-| `get_sha256sums()`                   | Returns a list of the sha256 checksums.                                                                   |
-| `get_sha512sums()`                   | Returns a list of the sha512 checksums.                                                                   |
-| `get_validpgpkeys()`                 | Returns a list of the valid PGP keys.                                                                     |
+| Function                              | That returns                                                                                  |
+|---------------------------------------|-----------------------------------------------------------------------------------------------|
+| `get_pkgname()`                       | Package name (`pkgname`) as a string.                                                         |
+| `get_pkgver()`                        | Package version (`pkgver`) as a string.                                                       |
+| `get_pkgrel()`                        | Release number (`pkgrel`) as a string.                                                        |
+| `get_pkgdesc()`                       | Package description (`pkgdesc`) as a string.                                                  |
+| `get_arch()`                          | Package architecture (`arch`) as a list of strings.                                           |
+| `get_url()`                           | Main project URL (`url`) as a string.                                                         |
+| `get_license()`                       | Package license (`license`) as a list of strings.                                             |
+| `get_source()`                        | Package source(s) (`source`) as a list of strings.                                            |
+| `get_dict_base_info()`                | Dictionary with all the previous fields in the format `{'pkgname': ..., 'pkgver': ..., ...}`. |
+| `base_info_to_json()`                 | Base information in **JSON** format with indentation and UTF-8 encoding.                      |
+| `write_base_info_to_json(json_name)`  | Writes the base information to a JSON file named `json_name`.                                 |
+| `get_epoch()`                         | Package `epoch`.                                                                              |
+| `get_full_package_name()`             | Full package name, including `epoch`, version, and `pkgrel`.                                  |
+| `get_depends()`                       | List of the package's dependencies.                                                           |
+| `get_makedepends()`                   | List of the package's build dependencies.                                                     |
+| `get_optdepends()`                    | List of the package's optional dependencies.                                                  |
+| `get_dict_optdepends()`               | Dictionary of the package's optional dependencies.                                            |
+| `optdepends_to_json()`                | JSON of the package's optional dependencies.                                                  |
+| `write_optdepends_to_json(json_name)` | Writes the package's optional dependencies to a JSON file.                                    |
+| `get_options()`                       | List of the package's options.                                                                |
+| `get_checkdepends()`                  | List of the package's check dependencies.                                                     |
+| `get_sha256sums()`                    | List of the sha256 checksums.                                                                 |
+| `get_sha512sums()`                    | List of the sha512 checksums.                                                                 |
+| `get_validpgpkeys()`                  | List of the valid PGP keys.                                                                   |
+| `get_conflicts()`                     | List of conflicting packages.                                                                 |
+| `get_provides()`                      | List of packages provided.                                                                    |
+| `get_replaces()`                      | List of packages it replaces.                                                                 |
+| `get_pkgbase()`                       | Base package (`pkgbase`) as a string.                                                         |
 
-**Note:** The internal functions (`get_base` and `multiline`) are intended for module use and **do not need to be used by the user**.
+**Note:** The internal functions (`get_base` and `multiline`) are intended for module use and **do not need to be used by the user**, except when you want to create functions that are not in the parser.
 
 ---
 
@@ -56,15 +60,11 @@ Although the module internally has support functions (`get_base`), the **user on
 
 The module is available on the AUR as **`python-pkgbuild-parser`**.
 
-### Option 2: Manual build
+### Option 2: PyPi
 
-If you want to build it manually:
-
-```bash
-python -m build
-pip install .
 ```
-
+pip install pkgbuild-parser
+```
 
 ## Basic usage
 
@@ -73,7 +73,7 @@ import pkgbuild_parser
 import sys
 
 try:
-    my_pkgbuild = pkgbuild_parser.Parser("PKGBUILD")
+    my_pkgbuild = pkgbuild_parser.Parser()
 except pkgbuild_parser.ParserFileError as exc:
     print(exc)
     sys.exit(1)
@@ -101,6 +101,10 @@ try:
     print(my_pkgbuild.get_sha256sums())
     print(my_pkgbuild.get_sha512sums())
     print(my_pkgbuild.get_validpgpkeys())
+    print(my_pkgbuild.get_conflicts())
+    print(my_pkgbuild.get_provides())
+    print(my_pkgbuild.get_replaces())
+    print(my_pkgbuild.get_pkgbase())
 
 
     # Get a dictionary of all the info
@@ -112,7 +116,7 @@ try:
 
     # Get JSON and write it to a file
     my_pkgbuild.write_base_info_to_json("info.json")
-except (pkgbuild_parser.ParserKeyError, pkgbuild_parser.ParserNoneTypeError) as e:
+except pkgbuild_parser.ParserKeyError as e:
     print(e)
 ```
 
@@ -121,8 +125,6 @@ except (pkgbuild_parser.ParserKeyError, pkgbuild_parser.ParserNoneTypeError) as 
 If the PKGBUILD file does not exist, a `ParserFileError` is raised, which must be caught to prevent the program from failing.
 
 A `ParserKeyError` can also be raised if getting a value from the PKGBUILD fails, for example, if the license is not declared correctly, and `get_license()` is called, this exception will be raised.
-
-Since version 0.2.0, a `ParserNoneTypeError` can also be raised if a function returns `None` when it was not expected.
 
 ## Limitations and additional notes
 

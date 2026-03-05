@@ -1,2 +1,3 @@
 from .pkgbuild_parser import *
-VERSION = "1.0.1"
+from .parser_core import *
+VERSION = "1.1.0"

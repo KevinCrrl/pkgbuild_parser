@@ -1,5 +1,19 @@
 # Changelog
 
+## Version 1.1.0 (2026-03-05)
+
+### Nuevas funcionalidades
+
+- Parser() por defecto admite un archivo con el nombre PKGBUILD, ahorrando tener que escribirlo cada momento.
+- Nuevas funciones `get_conflicts()`, `get_provides()`, `get_replaces()` y `get_pkgbase()`.
+
+### Correcciones y mejoras
+
+- ParserNoneTypeError ha sido marcado como deprecated y será eliminado en un futuro, se debe usar ParserKeyError en su reemplazo.
+- Las funciones `get_base()` y `none_prevention()` han sido combinadadas.
+- Se ha mejorado el parseo encontrado las claves usando .startswith y endswith en vez de un in.
+- Mejoras de estilo.
+
 ## Versión 1.0.1 (2025-12-22)
 
 ### Correcciones
