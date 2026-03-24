@@ -1,4 +1,6 @@
-# Licencia: MIT 2025-2026 KevinCrrl
+#  This Source Code Form is subject to the terms of the Mozilla Public
+#  License, v. 2.0. If a copy of the MPL was not distributed with this
+#  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import warnings
 
@@ -34,6 +36,8 @@ def remove_quotes(string) -> list[str] | str:
 
 
 class ParserCore:
+    __slots__ = ('filename', 'lines')
+
     def __init__(self, filename: str = "PKGBUILD"):
         try:
             with open(filename, 'r', encoding="utf-8") as f:
@@ -48,8 +52,9 @@ class ParserCore:
             # line example: optdepends=('package: desc' # comment
             # or
             # line example: optdepends=('one_package: one_desc') # comment
-            line: str = remove_quotes(line.split("#")[
-                                          0].strip())  # new line example: optdepends=(one_package: one_desc) or optdepends=(package: desc
+
+            # new line example: optdepends=(one_package: one_desc) or optdepends=(package: desc
+            line: str = remove_quotes(line.split("#")[0].strip())
             if not key_found and line.startswith(f"{key}="):  # key discovered
                 # fix for depends and makedepends
                 if " " in line and ":" not in line:
@@ -77,11 +82,11 @@ class ParserCore:
                 else:
                     list_of_lines.append(line.split("#")[0].strip())
             if key_found and line.endswith(")"):
-                list_of_lines.append(line.rstrip(")").strip())
+                list_of_lines += line.rstrip(")").strip().split()
                 break
         list_of_lines = list(filter(None, list_of_lines))
         if list_of_lines:
-            return list_of_lines
+            return self.processvar(list_of_lines)
         raise ParserKeyError(f"{key} not found in PKGBUILD")
 
     def get_base(self, key: str):
@@ -91,7 +96,33 @@ class ParserCore:
                 # line example: pkgdesc=("desc here") # packager's comment
                 # line.split("=")[1] example: ("desc here") # packager's comment
                 # line.split("=")[1].split("#")[0].lstrip("(").rstrip(")") example: "package info"
-                return remove_quotes(
+                return self.processvar(remove_quotes(
                     line.split("=")[1].split("#")[0].lstrip("(").rstrip(")")
-                )
+                ))
         raise ParserKeyError(f"{key} not found in PKGBUILD")
+
+    def replacevar(self, var: str) -> str:
+        names: list[str] = []
+        for func in dir(self):
+            if func.startswith("get_") and func != "get_base":
+                names.append(func.lstrip("get_"))
+        vars_to_replace = {}
+        for name in names:
+            if f"${name}" in var or "${"+name+"}" in var:
+                vars_to_replace[name] = self.get_base(name)
+        for name, new_var in vars_to_replace.items():
+            var = var.replace(name, new_var)
+        return_var = ""
+        for char in var:
+            if char not in ('$', '{', '}'):
+                return_var += char
+        return return_var
+
+    def processvar(self, var_returned: str | list[str]) -> str | list[str]:
+        if isinstance(var_returned, list):
+            new_var = []
+            for var_parsed in var_returned:
+                new_var.append(self.replacevar(var_parsed))
+        else:
+            new_var = self.replacevar(var_returned)
+        return new_var

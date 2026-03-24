@@ -1,10 +1,13 @@
-# License: MIT 2025-2026 KevinCrrl
+#  This Source Code Form is subject to the terms of the Mozilla Public
+#  License, v. 2.0. If a copy of the MPL was not distributed with this
+#  file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
 # Python module to extract information directly from PKGBUILD files (not .SRCINFO)
-# Version 1.1.0
+# Version 1.2.0
 # Docs: https://github.com/KevinCrrl/pkgbuild_parser/blob/main/README.md
 
-from pkgbuild_parser.parser_core import ParserCore, ParserKeyError
 import json
+from pkgbuild_parser.parser_core import ParserCore, ParserKeyError
 
 
 class Parser(ParserCore):
@@ -89,8 +92,7 @@ class Parser(ParserCore):
         return json.dumps(self.get_dict_optdepends(),
                           ensure_ascii=False, indent=4)
 
-    def write_optdepends_to_json(self, json_name:
-                                str = "optdepends.json") -> None:
+    def write_optdepends_to_json(self, json_name: str = "optdepends.json") -> None:
         with open(json_name, 'w', encoding="utf-8") as f:
             f.write(self.optdepends_to_json())
 
