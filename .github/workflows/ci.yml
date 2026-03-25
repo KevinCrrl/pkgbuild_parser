@@ -10,7 +10,7 @@ jobs:
     name: Lint
     steps:
       - name: Check out source repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: flake8 Lint
         run: |
           pacman -Syu python python-flake8 --noconfirm
