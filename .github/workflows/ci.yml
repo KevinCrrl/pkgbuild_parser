@@ -1,0 +1,17 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  flake8-lint:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+    name: Lint
+    steps:
+      - name: Check out source repository
+        uses: actions/checkout@v4
+      - name: flake8 Lint
+        run: |
+          pacman -Syu python python-flake8
+          flake8 pkgbuild_parser
