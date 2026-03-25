@@ -6,8 +6,8 @@
 
 **pkgbuild_parser** is a module written in **Python** (compatible with Python 3.x) designed to extract information from a **PKGBUILD**. The main purpose of this module is to provide simple and direct access to the most important fields of a PKGBUILD without relying on external tools or additional libraries.
 
-- **Version:** 1.1.0
-- **License:** MIT 2025 KevinCrrl
+- **Version:** 1.2.0
+- **License:** MPL-2.0 2026 KevinCrrl
 - **Dependencies:** None
 - **Style:** Simplicity, no external dependencies, easy to use
 
@@ -19,8 +19,8 @@ This module allows you to quickly and directly obtain data such as package name,
 
 Although the module internally has support functions (`get_base`), the **user only needs to use the high-level functions**, which are clear and direct:
 
-| Function                              | That returns                                                                                  |
-|---------------------------------------|-----------------------------------------------------------------------------------------------|
+| Function                                | That returns                                                                                    |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | `get_pkgname()`                       | Package name (`pkgname`) as a string.                                                         |
 | `get_pkgver()`                        | Package version (`pkgver`) as a string.                                                       |
 | `get_pkgrel()`                        | Release number (`pkgrel`) as a string.                                                        |
@@ -30,24 +30,24 @@ Although the module internally has support functions (`get_base`), the **user on
 | `get_license()`                       | Package license (`license`) as a list of strings.                                             |
 | `get_source()`                        | Package source(s) (`source`) as a list of strings.                                            |
 | `get_dict_base_info()`                | Dictionary with all the previous fields in the format `{'pkgname': ..., 'pkgver': ..., ...}`. |
-| `base_info_to_json()`                 | Base information in **JSON** format with indentation and UTF-8 encoding.                      |
+| `base_info_to_json()`                 | Base information in**JSON** format with indentation and UTF-8 encoding.                   |
 | `write_base_info_to_json(json_name)`  | Writes the base information to a JSON file named `json_name`.                                 |
 | `get_epoch()`                         | Package `epoch`.                                                                              |
-| `get_full_package_name()`             | Full package name, including `epoch`, version, and `pkgrel`.                                  |
-| `get_depends()`                       | List of the package's dependencies.                                                           |
-| `get_makedepends()`                   | List of the package's build dependencies.                                                     |
-| `get_optdepends()`                    | List of the package's optional dependencies.                                                  |
-| `get_dict_optdepends()`               | Dictionary of the package's optional dependencies.                                            |
-| `optdepends_to_json()`                | JSON of the package's optional dependencies.                                                  |
-| `write_optdepends_to_json(json_name)` | Writes the package's optional dependencies to a JSON file.                                    |
-| `get_options()`                       | List of the package's options.                                                                |
-| `get_checkdepends()`                  | List of the package's check dependencies.                                                     |
-| `get_sha256sums()`                    | List of the sha256 checksums.                                                                 |
-| `get_sha512sums()`                    | List of the sha512 checksums.                                                                 |
-| `get_validpgpkeys()`                  | List of the valid PGP keys.                                                                   |
-| `get_conflicts()`                     | List of conflicting packages.                                                                 |
-| `get_provides()`                      | List of packages provided.                                                                    |
-| `get_replaces()`                      | List of packages it replaces.                                                                 |
+| `get_full_package_name()`             | Full package name, including `epoch`, version, and `pkgrel`.                                |
+| `get_depends()`                       | List of the package's dependencies.                                                             |
+| `get_makedepends()`                   | List of the package's build dependencies.                                                       |
+| `get_optdepends()`                    | List of the package's optional dependencies.                                                    |
+| `get_dict_optdepends()`               | Dictionary of the package's optional dependencies.                                              |
+| `optdepends_to_json()`                | JSON of the package's optional dependencies.                                                    |
+| `write_optdepends_to_json(json_name)` | Writes the package's optional dependencies to a JSON file.                                      |
+| `get_options()`                       | List of the package's options.                                                                  |
+| `get_checkdepends()`                  | List of the package's check dependencies.                                                       |
+| `get_sha256sums()`                    | List of the sha256 checksums.                                                                   |
+| `get_sha512sums()`                    | List of the sha512 checksums.                                                                   |
+| `get_validpgpkeys()`                  | List of the valid PGP keys.                                                                     |
+| `get_conflicts()`                     | List of conflicting packages.                                                                   |
+| `get_provides()`                      | List of packages provided.                                                                      |
+| `get_replaces()`                      | List of packages it replaces.                                                                   |
 | `get_pkgbase()`                       | Base package (`pkgbase`) as a string.                                                         |
 
 **Note:** The internal functions (`get_base` and `multiline`) are intended for module use and **do not need to be used by the user**, except when you want to create functions that are not in the parser.
@@ -128,7 +128,8 @@ A `ParserKeyError` can also be raised if getting a value from the PKGBUILD fails
 
 ## Limitations and additional notes
 
-- The module's goal is to extract only **basic information** from standard PKGBUILDs, it cannot replace bash variables inside another variable, for example, if the source is declared with the value "$url/package.zip".
+- Starting with version 1.2.0, the parser can replace known variables in a Bash string. For example, if you try to fetch a source file and it is declared in the PKGBUILD as "${url}/package-$pkgver.tar.gz", pkgbuild-parser will be able to recognize these variables, retrieve them, and replace them with their values. 
+- The module's goal is to extract only **basic information** from standard PKGBUILDs, It cannot replace variables it does not recognize, such as "$my_personal_var", or variations of known variables, such as "$_pkgname".
 - It works best with PKGBUILDs that follow the **Arch Wiki** standards.
 - Since version 0.4.0, the module can extract information from arrays or lists, such as `depends`, `makedepends`, `source`, `optdepends`, `license`, `options`, and `checkdepends`.
 - Since version 1.0.0, functions that return a string no longer include quotes by default.
