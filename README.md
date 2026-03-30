@@ -129,7 +129,7 @@ A `ParserKeyError` can also be raised if getting a value from the PKGBUILD fails
 ## Limitations and additional notes
 
 - Starting with version 1.2.0, the parser can replace known variables in a Bash string. For example, if you try to fetch a source file and it is declared in the PKGBUILD as "${url}/package-$pkgver.tar.gz", pkgbuild-parser will be able to recognize these variables, retrieve them, and replace them with their values. 
-- The module's goal is to extract only **basic information** from standard PKGBUILDs, It cannot replace variables it does not recognize, such as "$my_personal_var", or variations of known variables, such as "$_pkgname".
+- The module's goal is to extract only **basic information** from standard PKGBUILDs, It cannot replace variables it does not recognize, such as "$my_personal_var", or variations of known variables, such as "$pkgname%suffix".
 - It works best with PKGBUILDs that follow the **Arch Wiki** standards.
 - Since version 0.4.0, the module can extract information from arrays or lists, such as `depends`, `makedepends`, `source`, `optdepends`, `license`, `options`, and `checkdepends`.
 - Since version 1.0.0, functions that return a string no longer include quotes by default.

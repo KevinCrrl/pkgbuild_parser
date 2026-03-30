@@ -1,5 +1,18 @@
 # Changelog
 
+## Version 1.2.0 (2026-03-30)
+
+### Nuevas funcionalidades
+
+- El parser puede reemplazar variables Bash dentro de una cadena si es una variables conocida como pkgname o _pkgname
+- La licencia se ha cambiado de MIT a MPL-2.0
+
+### Correciones y mejoras
+
+- Varios bugs corregidos en parser_core.py
+- Mejoras de estilo en pkgbuild_parser.py
+- Uso de flake8 en GitHub Actions
+
 ## Version 1.1.0 (2026-03-05)
 
 ### Nuevas funcionalidades
