@@ -3,6 +3,7 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 import warnings
+from platform import machine
 
 warnings.simplefilter("always", DeprecationWarning)
 
@@ -106,12 +107,22 @@ class ParserCore:
         for func in dir(self):
             if func.startswith("get_") and func != "get_base":
                 names.append(func.lstrip("get_"))
+                names.append(func.lstrip("get"))
         vars_to_replace = {}
         for name in names:
-            if f"${name}" in var or "${"+name+"}" in var:
+            if name == "arch" and ("$arch" in var or "${arch}" in var):
+                archs = self.multiline("arch")
+                if len(archs) > 1:
+                    if machine() in archs:
+                        vars_to_replace["arch"] = machine()
+                    else:
+                        vars_to_replace["arch"] = archs[0]
+                else:
+                    vars_to_replace["arch"] = "any"
+            elif f"${name}" in var or "${"+name+"}" in var:
                 vars_to_replace[name] = self.get_base(name)
         for name, new_var in vars_to_replace.items():
-            var = var.replace(name, new_var)
+            var = var.replace(f"${name}", new_var).replace("${"+name+"}", new_var)
         return_var = ""
         for char in var:
             if char not in ('$', '{', '}'):
