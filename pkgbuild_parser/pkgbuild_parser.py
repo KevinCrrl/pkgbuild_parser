@@ -3,7 +3,7 @@
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
 # Python module to extract information directly from PKGBUILD files (not .SRCINFO)
-# Version 1.2.0
+# Version 1.2.1
 # Docs: https://github.com/KevinCrrl/pkgbuild_parser/blob/main/README.md
 
 import json

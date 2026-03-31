@@ -1,5 +1,12 @@
 # Changelog
 
+## Version 1.2.1 (2026-03-31)
+
+### Correciones y mejoras
+
+- Correción en parser_core.py al reemplazar la arquitectura
+- Simplificación del reemplazo de la arquitectura
+
 ## Version 1.2.0 (2026-03-30)
 
 ### Nuevas funcionalidades

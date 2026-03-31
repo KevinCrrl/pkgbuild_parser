@@ -112,13 +112,10 @@ class ParserCore:
         for name in names:
             if name == "arch" and ("$arch" in var or "${arch}" in var):
                 archs = self.multiline("arch")
-                if len(archs) > 1:
-                    if machine() in archs:
-                        vars_to_replace["arch"] = machine()
-                    else:
-                        vars_to_replace["arch"] = archs[0]
+                if len(archs) > 1 and machine() in archs:
+                    vars_to_replace["arch"] = machine()
                 else:
-                    vars_to_replace["arch"] = "any"
+                    vars_to_replace["arch"] = archs[0]
             elif f"${name}" in var or "${"+name+"}" in var:
                 vars_to_replace[name] = self.get_base(name)
         for name, new_var in vars_to_replace.items():
