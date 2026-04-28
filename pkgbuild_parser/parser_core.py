@@ -2,10 +2,7 @@
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-import warnings
 from platform import machine
-
-warnings.simplefilter("always", DeprecationWarning)
 
 
 class ParserFileError(Exception):
@@ -14,16 +11,6 @@ class ParserFileError(Exception):
 
 class ParserKeyError(Exception):
     pass
-
-
-class ParserNoneTypeError(Exception):
-    def __init__(self, *args, **kwargs):
-        warnings.warn(
-            "ParserNoneTypeError is deprecated, use ParserKeyError instead.",
-            DeprecationWarning,
-            stacklevel=2
-        )
-        super().__init__(*args, **kwargs)
 
 
 def remove_quotes(string) -> list[str] | str:
