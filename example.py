@@ -47,3 +47,6 @@ try:
     my_pkgbuild.write_base_info_to_json()
 except pkgbuild_parser.ParserKeyError as e:
     print(e)
+
+info_test = pkgbuild_parser.InfoDict(my_pkgbuild, "pkgname")
+print(info_test.info_dict)

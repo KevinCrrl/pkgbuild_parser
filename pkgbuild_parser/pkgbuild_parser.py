@@ -35,25 +35,6 @@ class Parser(ParserCore):
     def get_source(self) -> list[str]:
         return self.multiline("source")
 
-    def get_dict_base_info(self):
-        return {"pkgname": self.get_pkgname(),
-                "pkgver": self.get_pkgver(),
-                "pkgrel": self.get_pkgrel(),
-                "pkgdesc": self.get_pkgdesc(),
-                "arch": self.get_arch(),
-                "url": self.get_url(),
-                "license": self.get_license(),
-                "source": self.get_source()}
-
-    def base_info_to_json(self) -> str:
-        return json.dumps(self.get_dict_base_info(),
-                          ensure_ascii=False, indent=4)
-
-    def write_base_info_to_json(self, json_name:
-                                str = "base_info.json") -> None:
-        with open(json_name, 'w', encoding="utf-8") as f:
-            f.write(self.base_info_to_json())
-
     def get_epoch(self):
         return self.get_base("epoch")
 
@@ -78,23 +59,12 @@ class Parser(ParserCore):
     def get_makedepends(self) -> list[str]:
         return self.multiline("makedepends")
 
-    def get_optdepends(self) -> list[str]:
-        return self.multiline("optdepends")
-
-    def get_dict_optdepends(self) -> dict[str, str]:
+    def get_optdepends(self) -> dict[str, str]:
         opt_dict: dict[str, str] = {}
-        for optdepend in self.get_optdepends():
+        for optdepend in self.multiline("optdepends"):
             optdepend = optdepend.split(":")
             opt_dict[optdepend[0]] = optdepend[1].strip()
         return opt_dict
-
-    def optdepends_to_json(self) -> str:
-        return json.dumps(self.get_dict_optdepends(),
-                          ensure_ascii=False, indent=4)
-
-    def write_optdepends_to_json(self, json_name: str = "optdepends.json") -> None:
-        with open(json_name, 'w', encoding="utf-8") as f:
-            f.write(self.optdepends_to_json())
 
     def get_options(self):
         return self.get_base("options")
@@ -119,3 +89,25 @@ class Parser(ParserCore):
 
     def get_pkgbase(self):
         return self.get_base("pkgbase")
+
+
+class InfoDict():
+    def __init__(self, parser: Parser, *info_to_get: str, multiline: bool = False,):
+        self.parser = parser
+        self.info_dict = {}
+        for info in info_to_get:
+            if multiline:
+                self.info_dict[info] = parser.multiline(info)
+            else:
+                self.info_dict[info] = parser.get_base(info)
+
+    def get_dict(self) -> dict[str, str | list[str]]:
+        return self.info_dict
+
+    def to_json(self) -> str:
+        return json.dumps(self.get_dict(),
+                          ensure_ascii=False, indent=4)
+
+    def write_json(self, json_name: str = "InfoDict.json") -> None:
+        with open(json_name, 'w', encoding="utf-8") as f:
+            f.write(self.to_json())
