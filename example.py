@@ -20,6 +20,7 @@ try:
     print(my_pkgbuild.get_license())
     print(my_pkgbuild.get_source())
     print(my_pkgbuild.get_epoch())
+    print(my_pkgbuild.get_sums("sha512"))
     print(my_pkgbuild.get_full_package_name())
     print(my_pkgbuild.get_depends())
     print(my_pkgbuild.get_makedepends())

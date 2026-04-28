@@ -102,11 +102,8 @@ class Parser(ParserCore):
     def get_checkdepends(self) -> list[str]:
         return self.multiline("checkdepends")
 
-    def get_sha256sums(self) -> list[str]:
-        return self.multiline("sha256sums")
-
-    def get_sha512sums(self) -> list[str]:
-        return self.multiline("sha512sums")
+    def get_sums(self, algorithm: str) -> list[str]:
+        return self.multiline(f"{algorithm.strip()}sums")
 
     def get_validpgpkeys(self) -> list[str]:
         return self.multiline("validpgpkeys")
