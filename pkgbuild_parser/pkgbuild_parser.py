@@ -66,8 +66,8 @@ class Parser(ParserCore):
             opt_dict[optdepend[0]] = optdepend[1].strip()
         return opt_dict
 
-    def get_options(self):
-        return self.get_base("options")
+    def get_options(self) -> list[str]:
+        return self.multiline("options")
 
     def get_checkdepends(self) -> list[str]:
         return self.multiline("checkdepends")

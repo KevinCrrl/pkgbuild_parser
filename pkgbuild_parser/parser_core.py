@@ -52,6 +52,8 @@ class ParserCore:
                     list_of_lines.append(line.split("=")[1].lstrip("(").rstrip(
                         " "))  # new line example: one_package: one_desc) or package: desc
                 key_found = True
+                if not line.startswith(f"{key}=("):  # break when the line is not multiline
+                    break
             if key_found and list_of_lines[0].endswith(")"):
                 # Fix for optdepends arrays
                 if ":" in list_of_lines[0]:

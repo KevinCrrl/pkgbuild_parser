@@ -25,9 +25,6 @@ try:
     print(my_pkgbuild.get_depends())
     print(my_pkgbuild.get_makedepends())
     print(my_pkgbuild.get_optdepends())
-    print(my_pkgbuild.get_dict_optdepends())
-    print(my_pkgbuild.optdepends_to_json())
-    my_pkgbuild.write_optdepends_to_json()
     print(my_pkgbuild.get_options())
     print(my_pkgbuild.get_checkdepends())
     print(my_pkgbuild.get_validpgpkeys())
@@ -36,17 +33,15 @@ try:
     print(my_pkgbuild.get_replaces())
     print(my_pkgbuild.get_pkgbase())
 
-    # Get a dictionary of all the info
-    info = my_pkgbuild.get_dict_base_info()
-    print(info)
-
-    # Show in JSON format
-    print(my_pkgbuild.base_info_to_json())
-
-    # Get JSON and write it to a file
-    my_pkgbuild.write_base_info_to_json()
+    # InfoDict class
+    info_test = pkgbuild_parser.InfoDict(my_pkgbuild, "pkgname", "pkgver", "conflicts",
+                                         multiline=True)
+    print("======= SIMPLE INFO DICT =======")
+    print(info_test.get_dict())
+    print("======= INFO DICT AS JSON ======")
+    print(info_test.to_json())
+    print("Writign JSON file...")
+    info_test.write_json("info_paquete.json")
+    print("Done!")
 except pkgbuild_parser.ParserKeyError as e:
     print(e)
-
-info_test = pkgbuild_parser.InfoDict(my_pkgbuild, "pkgname")
-print(info_test.info_dict)
