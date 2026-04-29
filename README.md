@@ -6,7 +6,7 @@
 
 **pkgbuild_parser** is a module written in **Python** (compatible with Python 3.x) designed to extract information from a **PKGBUILD**. The main purpose of this module is to provide simple and direct access to the most important fields of a PKGBUILD without relying on external tools or additional libraries.
 
-- **Version:** 1.2.1
+- **Version:** 2.0.0
 - **License:** MPL-2.0 2026 KevinCrrl
 - **Dependencies:** None
 - **Style:** Simplicity, no external dependencies, easy to use
@@ -29,28 +29,29 @@ Although the module internally has support functions (`get_base`), the **user on
 | `get_url()`                           | Main project URL (`url`) as a string.                                                         |
 | `get_license()`                       | Package license (`license`) as a list of strings.                                             |
 | `get_source()`                        | Package source(s) (`source`) as a list of strings.                                            |
-| `get_dict_base_info()`                | Dictionary with all the previous fields in the format `{'pkgname': ..., 'pkgver': ..., ...}`. |
-| `base_info_to_json()`                 | Base information in**JSON** format with indentation and UTF-8 encoding.                   |
-| `write_base_info_to_json(json_name)`  | Writes the base information to a JSON file named `json_name`.                                 |
 | `get_epoch()`                         | Package `epoch`.                                                                              |
 | `get_full_package_name()`             | Full package name, including `epoch`, version, and `pkgrel`.                                |
 | `get_depends()`                       | List of the package's dependencies.                                                             |
 | `get_makedepends()`                   | List of the package's build dependencies.                                                       |
-| `get_optdepends()`                    | List of the package's optional dependencies.                                                    |
-| `get_dict_optdepends()`               | Dictionary of the package's optional dependencies.                                              |
-| `optdepends_to_json()`                | JSON of the package's optional dependencies.                                                    |
-| `write_optdepends_to_json(json_name)` | Writes the package's optional dependencies to a JSON file.                                      |
+| `get_optdepends()`                    | Dictionary of the package's optional dependencies.                                              |
 | `get_options()`                       | List of the package's options.                                                                  |
 | `get_checkdepends()`                  | List of the package's check dependencies.                                                       |
-| `get_sha256sums()`                    | List of the sha256 checksums.                                                                   |
-| `get_sha512sums()`                    | List of the sha512 checksums.                                                                   |
+| `get_sums(algorithm)`                    | List of the `algorithm` checksums.                                                                   |
 | `get_validpgpkeys()`                  | List of the valid PGP keys.                                                                     |
 | `get_conflicts()`                     | List of conflicting packages.                                                                   |
 | `get_provides()`                      | List of packages provided.                                                                      |
 | `get_replaces()`                      | List of packages it replaces.                                                                   |
-| `get_pkgbase()`                       | Base package (`pkgbase`) as a string.                                                         |
+| `get_pkgbase()`                       | Base package (`pkgbase`) as a list.                                                         |
 
-**Note:** The internal functions (`get_base` and `multiline`) are intended for module use and **do not need to be used by the user**, except when you want to create functions that are not in the parser.
+**Note:** The internal functions (`get_base`, `multiline`, `replacevar`, `processvar` and `remove_quotes`) are intended for module use and **do not need to be used by the user**, except when you want to create functions that are not in the parser.
+
+Also, you can use the InfoDict class to create dictionariess from selected information, InfoDict has this methods:
+
+| Function                                | That returns                                                                                    |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `get_dict()`                       | dictionary that contains the information requested by the user.                                                         |
+| `to_json()`                        | Converts the dictionary to a JSON format.                                                       |
+| `write_json(json_name)`                        | Writes a file with the provided name that contains the dictionary information in JSON format.                                                        |
 
 ---
 
