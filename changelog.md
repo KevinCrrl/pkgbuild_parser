@@ -1,5 +1,27 @@
 # Changelog
 
+## Versión 2.0.0 (2026-04-29)
+
+### Nuevas funcionalidades
+
+- Clase `InfoDict` para almacenar valores parseables.
+- Funciones `get_dict`, `to_json` y `write_json` en la clase `InfoDict`.
+- Función `get_sums(algorithm)` para parsear varios métodos de integridad sin programarlos todos en el parser.
+
+### Correciones y mejoras
+
+- Ajuste en la función `multiline` para lineas que no tienen "()".
+- Cambiando retorno de `get_pkgbase` a lista en vez de string.
+- Cambiando retorno de `get_optdepends` de lista a dict.
+- Eliminando código que quitaba las llaves de variables desconocidas.
+
+### Cambios Rompedores (Breaking Changes)
+
+- Eliminación de la excepción deprecada `ParserNoneTypeError`.
+- Eliminación de los métodos `get_dict*`, `*_to_json` y `write_*_to_json` de la clase `Parser` (todo esto ha sido reemplazado por la clase InfoDict para mayor modularidad).
+- Eliminación de los métodos `get_*_sums` (Reemplazados por la función `get_sums(algorithm)` para mayor modularidad).
+- Eliminación del método `get_dict_optdepends` (Ahora `get_optdepends` retorna el dict en vez de list).
+
 ## Version 1.2.1 (2026-03-31)
 
 ### Correciones y mejoras
