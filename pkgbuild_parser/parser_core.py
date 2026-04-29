@@ -107,11 +107,7 @@ class ParserCore:
                 vars_to_replace[name] = self.get_base(name)
         for name, new_var in vars_to_replace.items():
             var = var.replace(f"${name}", new_var).replace("${"+name+"}", new_var)
-        return_var = ""
-        for char in var:
-            if char not in ('$', '{', '}'):
-                return_var += char
-        return return_var
+        return var
 
     def processvar(self, var_returned: str | list[str]) -> str | list[str]:
         if isinstance(var_returned, list):
