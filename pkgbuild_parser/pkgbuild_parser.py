@@ -92,14 +92,24 @@ class Parser(ParserCore):
 
 
 class InfoDict():
-    def __init__(self, parser: Parser, *info_to_get: str, multiline: bool = False,):
-        self.parser = parser
-        self.info_dict = {}
-        for info in info_to_get:
+    def __init__(self, parser: Parser, *info_to_get: str, multiline: bool = False,
+                 ignore_errors: bool = False):
+        def loop():
             if multiline:
                 self.info_dict[info] = parser.multiline(info)
             else:
                 self.info_dict[info] = parser.get_base(info)
+
+        self.parser = parser
+        self.info_dict = {}
+        for info in info_to_get:
+            if ignore_errors:
+                try:
+                    loop()
+                except ParserKeyError:
+                    pass
+            else:
+                loop()
 
     def get_dict(self) -> dict[str, str | list[str]]:
         return self.info_dict
