@@ -10,22 +10,22 @@ from pkgbuild_parser.parser_core import ParserCore, ParserKeyError
 
 
 class Parser(ParserCore):
-    def get_pkgname(self):
+    def get_pkgname(self) -> str:
         return self.get_base("pkgname")
 
-    def get_pkgver(self):
+    def get_pkgver(self) -> str:
         return self.get_base("pkgver")
 
-    def get_pkgrel(self):
+    def get_pkgrel(self) -> str:
         return self.get_base("pkgrel")
 
-    def get_pkgdesc(self):
+    def get_pkgdesc(self) -> str:
         return self.get_base("pkgdesc")
 
     def get_arch(self) -> list[str]:
         return self.multiline("arch")
 
-    def get_url(self):
+    def get_url(self) -> str:
         return self.get_base("url")
 
     def get_license(self) -> list[str]:
@@ -34,8 +34,11 @@ class Parser(ParserCore):
     def get_source(self) -> list[str]:
         return self.multiline("source")
 
-    def get_epoch(self):
+    def get_epoch(self) -> str:
         return self.get_base("epoch")
+
+    def get_install(self) -> str:
+        return self.get_base("install")
 
     def get_full_version(self) -> str:
         version = f"{self.get_pkgver()}-{self.get_pkgrel()}"
@@ -86,14 +89,14 @@ class Parser(ParserCore):
     def get_replaces(self) -> list[str]:
         return self.multiline("replaces")
 
-    def get_pkgbase(self):
+    def get_pkgbase(self) -> str:
         return self.get_base("pkgbase")
 
 
 class InfoDict():
     def __init__(self, parser: Parser, *info_to_get: str, multiline: bool = False,
                  ignore_errors: bool = False):
-        def loop():
+        def loop(info: str) -> None:
             if multiline:
                 self.info_dict[info] = parser.multiline(info)
             else:
@@ -104,11 +107,11 @@ class InfoDict():
         for info in info_to_get:
             if ignore_errors:
                 try:
-                    loop()
+                    loop(info)
                 except ParserKeyError:
                     pass
             else:
-                loop()
+                loop(info)
 
     def get_dict(self) -> dict[str, str | list[str]]:
         return self.info_dict

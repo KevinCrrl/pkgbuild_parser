@@ -6,7 +6,7 @@
 
 **pkgbuild_parser** is a module written in **Python** (compatible with Python 3.x) designed to extract information from a **PKGBUILD**. The main purpose of this module is to provide simple and direct access to the most important fields of a PKGBUILD without relying on external tools or additional libraries.
 
-- **Version:** 2.0.0
+- **Version:** 2.1.0
 - **License:** MPL-2.0 2026 KevinCrrl
 - **Dependencies:** None
 - **Style:** Simplicity, no external dependencies, easy to use
@@ -30,6 +30,7 @@ Although the module internally has support functions (`get_base`), the **user on
 | `get_license()`                       | Package license (`license`) as a list of strings.                                             |
 | `get_source()`                        | Package source(s) (`source`) as a list of strings.                                            |
 | `get_epoch()`                         | Package `epoch`.                                                                              |
+| `get_install()`                       | Install script name
 | `get_full_package_name()`             | Full package name, including `epoch`, version, and `pkgrel`.                                |
 | `get_depends()`                       | List of the package's dependencies.                                                             |
 | `get_makedepends()`                   | List of the package's build dependencies.                                                       |
@@ -83,5 +84,6 @@ A `ParserKeyError` can also be raised if getting a value from the PKGBUILD fails
 - Starting with version 1.2.0, the parser can replace known variables in a Bash string. For example, if you try to fetch a source file and it is declared in the PKGBUILD as "${url}/package-$pkgver.tar.gz", pkgbuild-parser will be able to recognize these variables, retrieve them, and replace them with their values. 
 - The module's goal is to extract only **basic information** from standard PKGBUILDs, It cannot replace variables it does not recognize, such as "$my_personal_var", or variations of known variables, such as "$pkgname%suffix".
 - It works best with PKGBUILDs that follow the **Arch Wiki** standards.
+- This code doesn't implement a proper parser; it simply reads the PKGBUILD file and extracts the necessary information using various conditions and state logic. However, I try to make it as accurate as possible :)
 - Since version 0.4.0, the module can extract information from arrays or lists, such as `depends`, `makedepends`, `source`, `optdepends`, `license`, `options`, and `checkdepends`.
 - Since version 1.0.0, functions that return a string no longer include quotes by default.

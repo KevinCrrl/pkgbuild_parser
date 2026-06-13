@@ -1,5 +1,16 @@
 # Changelog
 
+## Versión 2.1.0 (2026-06-13)
+
+### Nuevas funcionalidades
+
+- Método `get_install` en la clase Parser para obtener el nombre del script de instalación
+
+### Correciones y mejoras
+
+- Ajuste en el type hint de retorno de la función `get_base` de la clase ParserCore para aclarar el retorno de un str y usar este tipo para todas las funciones que usan `get_base` en la clase Parser.
+- Añadiendo argumento info en la función `loop` de la clase InfoDict para tener mayor claridad interna del valor a obtener en el proceso de creación del diccionario.
+
 ## Versión 2.0.0 (2026-04-29)
 
 ### Nuevas funcionalidades

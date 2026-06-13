@@ -79,7 +79,7 @@ class ParserCore:
             return self.processvar(list_of_lines)
         raise ParserKeyError(f"{key} not found in PKGBUILD")
 
-    def get_base(self, key: str):
+    def get_base(self, key: str) -> str:
         """Basic function to obtain simple values."""
         for line in self.lines:
             if line.startswith(f"{key}="):
