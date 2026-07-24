@@ -15,6 +15,10 @@ This module allows you to quickly and directly obtain data such as package name,
 
 ---
 
+## Contributing to PKGBUILD Parser
+
+See the [CONTRIBUTING](CONTRIBUTING.md) file.
+
 ## Main functions for the user
 
 Although the module internally has support functions (`get_base`), the **user only needs to use the high-level functions**, which are clear and direct:
