@@ -1,5 +1,15 @@
 # Changelog
 
+## Versión 2.2.0. (2026-08-02)
+
+### Nuevas funcionalidades
+
+- Nuevos métodos: `get_groups`, `get_changelog`, `get_backup`, `get_noextract`
+
+### Correciones y mejoras
+
+- Se añade __slots__ a la clase hija Parser
+
 ## Versión 2.1.0 (2026-06-13)
 
 ### Nuevas funcionalidades

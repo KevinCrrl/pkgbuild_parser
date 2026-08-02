@@ -33,6 +33,10 @@ try:
     print(my_pkgbuild.get_provides())
     print(my_pkgbuild.get_replaces())
     print(my_pkgbuild.get_pkgbase())
+    print(my_pkgbuild.get_changelog())
+    print(my_pkgbuild.get_groups())
+    print(my_pkgbuild.get_noextract())
+    print(my_pkgbuild.get_backup())
 
     # InfoDict class
     info_test = pkgbuild_parser.InfoDict(my_pkgbuild, "pkgname", "pkgver", "conflicts",

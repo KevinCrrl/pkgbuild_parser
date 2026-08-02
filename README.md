@@ -6,7 +6,7 @@
 
 **pkgbuild_parser** is a module written in **Python** (compatible with Python 3.x) designed to extract information from a **PKGBUILD**. The main purpose of this module is to provide simple and direct access to the most important fields of a PKGBUILD without relying on external tools or additional libraries.
 
-- **Version:** 2.1.0
+- **Version:** 2.2.0
 - **License:** MPL-2.0 2026 KevinCrrl
 - **Dependencies:** None
 - **Style:** Simplicity, no external dependencies, easy to use
