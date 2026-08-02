@@ -47,6 +47,10 @@ Although the module internally has support functions (`get_base`), the **user on
 | `get_provides()`                      | List of packages provided.                                                                      |
 | `get_replaces()`                      | List of packages it replaces.                                                                   |
 | `get_pkgbase()`                       | Base package (`pkgbase`) as a list.                                                         |
+| `get_changelog()`                       | Changelog filename as a string.                                                        |
+| `get_groups()`                       | List of the package groups.                                                        |
+| `get_backup()`                       | List of the backup files.                                                       |
+| `get_noextract()`                       | List of files to exclude from the extraction.|
 
 **Note:** The internal functions (`get_base`, `multiline`, `replacevar`, `processvar` and `remove_quotes`) are intended for module use and **do not need to be used by the user**, except when you want to create functions that are not in the parser.
 
