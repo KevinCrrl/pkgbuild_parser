@@ -10,6 +10,8 @@ from pkgbuild_parser.parser_core import ParserCore, ParserKeyError
 
 
 class Parser(ParserCore):
+    __slots__ = ()
+
     def get_pkgname(self) -> str:
         return self.get_base("pkgname")
 
@@ -91,6 +93,18 @@ class Parser(ParserCore):
 
     def get_pkgbase(self) -> str:
         return self.get_base("pkgbase")
+
+    def get_changelog(self) -> str:
+        return self.get_base("changelog")
+
+    def get_groups(self) -> list[str]:
+        return self.multiline("groups")
+
+    def get_backup(self) -> list[str]:
+        return self.multiline("backup")
+
+    def get_noextract(self) -> list[str]:
+        return self.multiline("noextract")
 
 
 class InfoDict():
