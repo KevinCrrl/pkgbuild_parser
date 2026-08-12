@@ -6,12 +6,12 @@
 
 **pkgbuild_parser** is a module written in **Python** (compatible with Python 3.x) designed to extract information from a **PKGBUILD**. The main purpose of this module is to provide simple and direct access to the most important fields of a PKGBUILD without relying on external tools or additional libraries.
 
-- **Version:** 2.2.0
+- **Version:** 2.3.0
 - **License:** MPL-2.0 2026 KevinCrrl
 - **Dependencies:** None
 - **Style:** Simplicity, no external dependencies, easy to use
 
-This module allows you to quickly and directly obtain data such as package name, version, description, license, URL, and source file.
+This module allows you to quickly and directly obtain data such as package name, version, description, license, URL, source file, etc.
 
 ---
 
@@ -19,9 +19,35 @@ This module allows you to quickly and directly obtain data such as package name,
 
 See the [CONTRIBUTING](CONTRIBUTING.md) file.
 
-## Main functions for the user
+## Classes and usage
 
-Although the module internally has support functions (`get_base`), the **user only needs to use the high-level functions**, which are clear and direct:
+```python
+from pkgbuild_parser import Parser, InfoDict
+
+parser = Parser(<FILENAME> (String; Default value: "PKGBUILD")
+                <ENABLE_CACHE> (Boolean; Default value: True)
+                <EXTRA_NAMES> (List of strings; Default value: None))
+
+infodict = InfoDict(<PARSER> (Parser; Not default value)
+                    <*INFO_TO_GET> (Strings; Not default value)
+                    <MULTILINE> (Boolean; Default value: False)
+                    <IGNORE_ERRORS> (Boolean; Default value: False))
+```
+
+### Parser Class
+
+- filename: PKGBUILD path, not directory.
+- enable_cache: enables a dictionary used to save variables and avoid re-parsing.
+- extra_names: list of custom variables to be followed by replacevar.
+
+### InfoDict Class
+
+- parser: Parser used to get the variables.
+- info_to_get: Variables to be followed.
+- multiline: Return lists using multiline or strings using get_base
+- ignore_errors: Ignore all the KeyNotFoundError.
+
+## Main functions for the user (Parser class)
 
 | Function                                | That returns                                                                                    |
 | --------------------------------------- | ----------------------------------------------------------------------------------------------- |
@@ -53,6 +79,8 @@ Although the module internally has support functions (`get_base`), the **user on
 | `get_noextract()`                       | List of files to exclude from the extraction.|
 
 **Note:** The internal functions (`get_base`, `multiline`, `replacevar`, `processvar` and `remove_quotes`) are intended for module use and **do not need to be used by the user**, except when you want to create functions that are not in the parser.
+
+## Main functions for the user (InfoDict class)
 
 Also, you can use the InfoDict class to create dictionariess from selected information, InfoDict has this methods:
 
@@ -90,7 +118,7 @@ A `ParserKeyError` can also be raised if getting a value from the PKGBUILD fails
 ## Limitations and additional notes
 
 - Starting with version 1.2.0, the parser can replace known variables in a Bash string. For example, if you try to fetch a source file and it is declared in the PKGBUILD as "${url}/package-$pkgver.tar.gz", pkgbuild-parser will be able to recognize these variables, retrieve them, and replace them with their values. 
-- The module's goal is to extract only **basic information** from standard PKGBUILDs, It cannot replace variables it does not recognize, such as "$my_personal_var", or variations of known variables, such as "$pkgname%suffix".
+- The module's goal is to extract only **basic information** from standard PKGBUILDs, It cannot replace variables it does not recognize, such as variations of known variables, such as "$pkgname%suffix".
 - It works best with PKGBUILDs that follow the **Arch Wiki** standards.
 - This code doesn't implement a proper parser; it simply reads the PKGBUILD file and extracts the necessary information using various conditions and state logic. However, I try to make it as accurate as possible :)
 - Since version 0.4.0, the module can extract information from arrays or lists, such as `depends`, `makedepends`, `source`, `optdepends`, `license`, `options`, and `checkdepends`.
