@@ -25,13 +25,15 @@ def remove_quotes(string) -> list[str] | str:
 
 
 class ParserCore:
-    __slots__ = ('filename', 'lines', 'enable_cache', 'cache')
+    __slots__ = ('filename', 'lines', 'enable_cache', 'cache', 'extra_names')
 
-    def __init__(self, filename: str = "PKGBUILD", enable_cache: bool = True):
+    def __init__(self, filename: str = "PKGBUILD", enable_cache: bool = True,
+                 extra_names: list[str] | None = None):
         try:
             with open(filename, 'r', encoding="utf-8") as f:
                 self.lines = f.readlines()
             self.enable_cache = enable_cache
+            self.extra_names = extra_names
             if self.enable_cache:
                 self.cache = {}
         except FileNotFoundError as exc:
@@ -94,6 +96,8 @@ class ParserCore:
             if func.startswith("get_") and func != "get_base":
                 names.append(func.lstrip("get_"))
                 names.append(func.lstrip("get"))
+        if self.extra_names:
+            names += self.extra_names
         vars_to_replace = {}
         for name in names:
             if name == "arch" and ("$arch" in var or "${arch}" in var):

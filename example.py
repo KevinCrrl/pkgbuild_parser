@@ -4,7 +4,7 @@ import pkgbuild_parser
 print(f"pkgbuild-parser version: {pkgbuild_parser.VERSION}")
 
 try:
-    my_pkgbuild = pkgbuild_parser.Parser()
+    my_pkgbuild = pkgbuild_parser.Parser(extra_names=["custom_var"])
 except pkgbuild_parser.ParserFileError as exc:
     print(exc)
     sys.exit(1)
