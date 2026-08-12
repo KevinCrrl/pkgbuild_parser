@@ -1,5 +1,17 @@
 # Changelog
 
+## Versión 2.3.0 (2026-08-12)
+
+### Nuevas funcionalidades
+
+- Almacenamiento de datos ya encontrados usando `enable_cache` en la clase `Parser`
+- Capacidad para añadir variables personalizadas a la clase `Parser` para ser seguidas por replacevary sustituirlas en otras variables.
+
+### Correciones y mejoras
+
+- Usando `multiline` para `get_base` accediendo al índice 0 de la lista retornada.
+- Eliminando código usado para parsear correctamente `optdepends`, ahora se usa split de shlex.
+
 ## Versión 2.2.0. (2026-08-02)
 
 ### Nuevas funcionalidades

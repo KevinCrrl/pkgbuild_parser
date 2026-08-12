@@ -4,4 +4,4 @@
 
 from .pkgbuild_parser import *
 from .parser_core import *
-VERSION = "2.2.0"
+VERSION = "2.3.0"
