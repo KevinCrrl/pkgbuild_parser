@@ -1,7 +1,6 @@
 # pkgbuild_parser
 
 [Documentation in Spanish](https://kevincrrl.github.io/KevinCrrl/documentacion/pkgbuild_parser)
-[Documentation in Esglish (HTML Version)](https://kevincrrl.github.io/KevinCrrl/documentation/pkgbuild_parser)
 
 ## Introduction
 
@@ -18,7 +17,7 @@ This module allows you to quickly and directly obtain data such as package name,
 
 ## Contributing to PKGBUILD Parser
 
-See the [CONTRIBUTING](CONTRIBUTING.md) file.
+See the [CONTRIBUTING](https://github.com/KevinCrrl/pkgbuild_parser/blob/main/CONTRIBUTING.md) file.
 
 ## Classes and usage
 
