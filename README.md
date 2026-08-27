@@ -1,6 +1,7 @@
 # pkgbuild_parser
 
-[Documentation in Spanish](https://kevincrrl.github.io/KevinCrrl/documentacion/pkgbuild_parser.html)
+[Documentation in Spanish](https://kevincrrl.github.io/KevinCrrl/documentacion/pkgbuild_parser)
+[Documentation in Esglish (HTML Version)](https://kevincrrl.github.io/KevinCrrl/documentation/pkgbuild_parser)
 
 ## Introduction
 
