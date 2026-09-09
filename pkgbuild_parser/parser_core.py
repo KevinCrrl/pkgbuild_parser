@@ -25,12 +25,16 @@ def remove_quotes(string) -> list[str] | str:
 
 
 class ParserCore:
-    __slots__ = ('filename', 'lines', 'enable_cache', 'cache', 'extra_names')
+    __slots__ = ("cache", "enable_cache", "extra_names", "filename", "lines")
 
-    def __init__(self, filename: str = "PKGBUILD", enable_cache: bool = True,
-                 extra_names: list[str] | None = None):
+    def __init__(
+        self,
+        filename: str = "PKGBUILD",
+        enable_cache: bool = True,
+        extra_names: list[str] | None = None,
+    ):
         try:
-            with open(filename, 'r', encoding="utf-8") as f:
+            with open(filename, "r", encoding="utf-8") as f:
                 self.lines = f.readlines()
             self.enable_cache = enable_cache
             self.extra_names = extra_names
@@ -58,20 +62,31 @@ class ParserCore:
                         list_of_lines = split(line)
                         list_of_lines[0] = list_of_lines[0].split("=(")[1]
                     else:
-                        list_of_lines.append(line.split("=")[1].lstrip("(").rstrip(
-                            " "))  # new line example: one_package: one_desc) or package: desc
+                        list_of_lines.append(
+                            line.split("=")[1].lstrip("(").rstrip(" ")
+                        )  # new line example: one_package: one_desc) or package: desc
                     key_found = True
-                    if not line.startswith(f"{key}=("):  # break when the line is not multiline
+                    if not line.startswith(
+                        f"{key}=("
+                    ):  # break when the line is not multiline
                         break
                 if key_found and list_of_lines[0].endswith(")"):
                     # Fix for optdepends arrays
                     list_of_lines = split(list_of_lines[0].rstrip(")"))
-                    list_of_lines = [package.strip() for package in list_of_lines]  # Quit spaces
+                    list_of_lines = [
+                        package.strip() for package in list_of_lines
+                    ]  # Quit spaces
                     break
-                if key_found and list_of_lines[-1].endswith(")"):  # Only for depends/makedepends
+                if key_found and list_of_lines[-1].endswith(
+                    ")"
+                ):  # Only for depends/makedepends
                     list_of_lines[-1] = list_of_lines[-1].strip(")")
                     break
-                if key_found and not line.endswith(")") and not line.startswith(f"{key}="):
+                if (
+                    key_found
+                    and not line.endswith(")")
+                    and not line.startswith(f"{key}=")
+                ):
                     for package in split(line):
                         list_of_lines.append(package)
                 if key_found and line.endswith(")"):
@@ -106,10 +121,10 @@ class ParserCore:
                     vars_to_replace["arch"] = machine()
                 else:
                     vars_to_replace["arch"] = archs[0]
-            elif f"${name}" in var or "${"+name+"}" in var:
+            elif f"${name}" in var or "${" + name + "}" in var:
                 vars_to_replace[name] = self.get_base(name)
         for name, new_var in vars_to_replace.items():
-            var = var.replace(f"${name}", new_var).replace("${"+name+"}", new_var)
+            var = var.replace(f"${name}", new_var).replace("${" + name + "}", new_var)
         return var
 
     def processvar(self, var_returned: str | list[str]) -> str | list[str]:

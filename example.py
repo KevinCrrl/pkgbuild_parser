@@ -1,4 +1,5 @@
 import sys
+
 import pkgbuild_parser
 
 print(f"pkgbuild-parser version: {pkgbuild_parser.VERSION}")
@@ -39,8 +40,9 @@ try:
     print(my_pkgbuild.get_backup())
 
     # InfoDict class
-    info_test = pkgbuild_parser.InfoDict(my_pkgbuild, "pkgname", "pkgver", "conflicts",
-                                         multiline=True)
+    info_test = pkgbuild_parser.InfoDict(
+        my_pkgbuild, "pkgname", "pkgver", "conflicts", multiline=True
+    )
     print("======= SIMPLE INFO DICT =======")
     print(info_test.get_dict())
     print("======= INFO DICT AS JSON ======")

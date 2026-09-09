@@ -6,12 +6,13 @@ jobs:
   flake8-lint:
     runs-on: ubuntu-latest
     container:
-      image: archlinux:latest
+      image: alpine:latest
     name: Lint
     steps:
       - name: Check out source repository
         uses: actions/checkout@v5
-      - name: flake8 Lint
+      - name: Ruff Lint
         run: |
-          pacman -Syu python python-flake8 --noconfirm
-          flake8 pkgbuild_parser
+          apk update && apk upgrade --no-cache
+          apk add ruff
+          ruff check .

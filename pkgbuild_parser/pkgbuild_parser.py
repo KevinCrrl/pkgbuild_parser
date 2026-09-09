@@ -6,6 +6,7 @@
 # Docs: https://github.com/KevinCrrl/pkgbuild_parser/blob/main/README.md
 
 import json
+
 from pkgbuild_parser.parser_core import ParserCore, ParserKeyError
 
 
@@ -107,9 +108,14 @@ class Parser(ParserCore):
         return self.multiline("noextract")
 
 
-class InfoDict():
-    def __init__(self, parser: Parser, *info_to_get: str, multiline: bool = False,
-                 ignore_errors: bool = False):
+class InfoDict:
+    def __init__(
+        self,
+        parser: Parser,
+        *info_to_get: str,
+        multiline: bool = False,
+        ignore_errors: bool = False,
+    ):
         def loop(info: str) -> None:
             if multiline:
                 self.info_dict[info] = parser.multiline(info)
@@ -131,9 +137,8 @@ class InfoDict():
         return self.info_dict
 
     def to_json(self) -> str:
-        return json.dumps(self.get_dict(),
-                          ensure_ascii=False, indent=4)
+        return json.dumps(self.get_dict(), ensure_ascii=False, indent=4)
 
     def write_json(self, json_name: str = "InfoDict.json") -> None:
-        with open(json_name, 'w', encoding="utf-8") as f:
+        with open(json_name, "w", encoding="utf-8") as f:
             f.write(self.to_json())
