@@ -13,6 +13,15 @@ from pkgbuild_parser.parser_core import ParserCore, ParserKeyError
 class Parser(ParserCore):
     __slots__ = ()
 
+    def __init__(
+        self,
+        filename: str = "PKGBUILD",
+        enable_cache: bool = True,
+        extra_names: list[str] | None = None,
+        arch: str | None = None,
+    ):
+        super().__init__(filename, enable_cache, extra_names, arch)
+
     def get_pkgname(self) -> str:
         return self.get_base("pkgname")
 
@@ -35,7 +44,7 @@ class Parser(ParserCore):
         return self.multiline("license")
 
     def get_source(self) -> list[str]:
-        return self.multiline("source")
+        return self.get_by_arch("source")
 
     def get_epoch(self) -> str:
         return self.get_base("epoch")
@@ -59,10 +68,10 @@ class Parser(ParserCore):
             return f"{name}-{version}"
 
     def get_depends(self) -> list[str]:
-        return self.multiline("depends")
+        return self.get_by_arch("depends")
 
     def get_makedepends(self) -> list[str]:
-        return self.multiline("makedepends")
+        return self.get_by_arch("makedepends")
 
     def get_optdepends(self) -> dict[str, str]:
         opt_dict: dict[str, str] = {}
@@ -75,10 +84,10 @@ class Parser(ParserCore):
         return self.multiline("options")
 
     def get_checkdepends(self) -> list[str]:
-        return self.multiline("checkdepends")
+        return self.get_by_arch("checkdepends")
 
     def get_sums(self, algorithm: str) -> list[str]:
-        return self.multiline(f"{algorithm.strip()}sums")
+        return self.get_by_arch(f"{algorithm.strip()}sums")
 
     def get_validpgpkeys(self) -> list[str]:
         return self.multiline("validpgpkeys")

@@ -25,18 +25,20 @@ def remove_quotes(string) -> list[str] | str:
 
 
 class ParserCore:
-    __slots__ = ("cache", "enable_cache", "extra_names", "filename", "lines")
+    __slots__ = ("arch", "cache", "enable_cache", "extra_names", "filename", "lines")
 
     def __init__(
         self,
         filename: str = "PKGBUILD",
         enable_cache: bool = True,
         extra_names: list[str] | None = None,
+        arch: str | None = None,
     ):
         try:
             with open(filename, "r", encoding="utf-8") as f:
                 self.lines = f.readlines()
             self.enable_cache = enable_cache
+            self.arch = arch
             self.extra_names = extra_names
             if self.enable_cache:
                 self.cache = {}
@@ -104,6 +106,13 @@ class ParserCore:
     def get_base(self, key: str) -> str:
         """Basic function to obtain simple values."""
         return self.multiline(key)[0]
+
+    def get_by_arch(self, key: str) -> list[str]:
+        any_arch = self.multiline(key)
+        if self.arch or self.arch != "any":
+            key = f"{key}_{self.arch}"
+            return any_arch + self.multiline(key)
+        return any_arch
 
     def replacevar(self, var: str) -> str:
         names: list[str] = []
