@@ -75,7 +75,7 @@ class Parser(ParserCore):
 
     def get_optdepends(self) -> dict[str, str]:
         opt_dict: dict[str, str] = {}
-        for optdepend in self.multiline("optdepends"):
+        for optdepend in self.get_by_arch("optdepends"):
             optdepend = optdepend.split(":")
             opt_dict[optdepend[0]] = optdepend[1].strip()
         return opt_dict
@@ -90,16 +90,16 @@ class Parser(ParserCore):
         return self.get_by_arch(f"{algorithm.strip()}sums")
 
     def get_validpgpkeys(self) -> list[str]:
-        return self.multiline("validpgpkeys")
+        return self.get_by_arch("validpgpkeys")
 
     def get_conflicts(self) -> list[str]:
-        return self.multiline("conflicts")
+        return self.get_by_arch("conflicts")
 
     def get_provides(self) -> list[str]:
-        return self.multiline("provides")
+        return self.get_by_arch("provides")
 
     def get_replaces(self) -> list[str]:
-        return self.multiline("replaces")
+        return self.get_by_arch("replaces")
 
     def get_pkgbase(self) -> str:
         return self.get_base("pkgbase")
@@ -114,7 +114,7 @@ class Parser(ParserCore):
         return self.multiline("backup")
 
     def get_noextract(self) -> list[str]:
-        return self.multiline("noextract")
+        return self.get_by_arch("noextract")
 
 
 class InfoDict:
