@@ -5,6 +5,8 @@
 from platform import machine
 from shlex import split
 
+ARCH: str = machine()
+
 
 class ParserFileError(Exception):
     pass
@@ -36,12 +38,12 @@ class ParserCore:
     ):
         try:
             with open(filename, "r", encoding="utf-8") as f:
-                self.lines = f.readlines()
-            self.enable_cache = enable_cache
-            self.arch = arch
-            self.extra_names = extra_names
+                self.lines: list[str] = f.readlines()
+            self.enable_cache: bool = enable_cache
+            self.arch: str | None = arch
+            self.extra_names: list[str] | None = extra_names
             if self.enable_cache:
-                self.cache = {}
+                self.cache: dict[str, list[str]] = {}
         except FileNotFoundError as exc:
             raise ParserFileError(f"PKGBUILD file '{filename}' not found") from exc
 
@@ -107,11 +109,24 @@ class ParserCore:
         """Basic function to obtain simple values."""
         return self.multiline(key)[0]
 
+    def _get_arch_as_str(self) -> str:
+        archs: list[str] = self.multiline("arch")
+        if len(archs) > 1 and ARCH in archs:
+            return ARCH
+        return archs[0]
+
     def get_by_arch(self, key: str) -> list[str]:
-        any_arch = self.multiline(key)
+        any_arch: list[str] = self.multiline(key)
         if self.arch or self.arch != "any":
-            key = f"{key}_{self.arch}"
-            return any_arch + self.multiline(key)
+            if self.arch == "auto":
+                self.arch = self._get_arch_as_str()
+            try:
+                key = f"{key}_{self.arch}"
+                return any_arch + self.multiline(key)
+            except (
+                ParserKeyError
+            ):  # Ignore if an especific arch variable does not exist
+                pass
         return any_arch
 
     def replacevar(self, var: str) -> str:
@@ -125,11 +140,7 @@ class ParserCore:
         vars_to_replace = {}
         for name in names:
             if name == "arch" and ("$arch" in var or "${arch}" in var):
-                archs = self.multiline("arch")
-                if len(archs) > 1 and machine() in archs:
-                    vars_to_replace["arch"] = machine()
-                else:
-                    vars_to_replace["arch"] = archs[0]
+                vars_to_replace["arch"] = self._get_arch_as_str()
             elif f"${name}" in var or "${" + name + "}" in var:
                 vars_to_replace[name] = self.get_base(name)
         for name, new_var in vars_to_replace.items():
