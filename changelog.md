@@ -4,6 +4,10 @@
 
 - Update contributing.md to reflect conventional commits
 
+### ⚙️ Miscellaneous Tasks
+
+- Add auto-update changelog.md and git-cliff config file
+
 ### 💼 Other
 
 - Remove old changelog and add new changelog using git-cliff
