@@ -9,4 +9,3 @@ pkgbuild_parser.egg-info/
 *.txt
 .idea/
 *.html
-cliff.toml

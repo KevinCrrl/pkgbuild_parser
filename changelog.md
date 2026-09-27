@@ -1,31 +1,36 @@
 ## [unreleased]
 
+### 📚 Documentation
+
+- Update contributing.md to reflect conventional commits
+
 ### 💼 Other
 
-- Update README.md
-- Fix README.md
-- CI: replace flake8 by ruff and replace archlinux container by alpine
-- Pyproject.toml: add ruff ignore
-- Initial support for variables with architecture (not complete)
-- Add get_by_arch support to other variables
+- Remove old changelog and add new changelog using git-cliff
 - Add auto option to arch argument
+- Add get_by_arch support to other variables
+- Initial support for variables with architecture (not complete)
+- Add ruff ignore
+- Replace flake8 by ruff and replace archlinux container by alpine
+- Fix README.md
+- Update README.md
 ## [2.3.0] - 2026-08-12
 
 ### 💼 Other
 
-- Update example and changelog
-- Add cache option and clear legacy code; migrating to shlex.split
-- Add custom variables to replacevar using the Parser class
-- Update changelog and update version to 2.3.0
 - Update README.md and create version 2.3.0
+- Update changelog and update version to 2.3.0
+- Add custom variables to replacevar using the Parser class
+- Add cache option and clear legacy code; migrating to shlex.split
+- Update example and changelog
 ## [2.2.0] - 2026-08-02
 
 ### 💼 Other
 
-- Add general CoC
-- Add CONTRIBUTING.md file
-- Add support for multiple variables
 - Version 2.2.0
+- Add support for multiple variables
+- Add CONTRIBUTING.md file
+- Add general CoC
 ## [2.1.0] - 2026-06-13
 
 ### 💼 Other
@@ -39,20 +44,20 @@
 
 ### 💼 Other
 
-- Creating example.py and update README
-- [BREAKING] Deleting deprecated exception
-- [BREAKING] replacing sha256sums and sha512sums functions by get_sums(algorithm) function
-- [BREAKING] Creating InfoDict class and removing multiple functions from Parser class
-- Removing code that deletes keys for unknown vars.
-- Adding ignore_errors option to InfoDict class
-- Update README
 - Version 2.0.0; See the changelog.md
+- Update README
+- Adding ignore_errors option to InfoDict class
+- Removing code that deletes keys for unknown vars.
+- [BREAKING] Creating InfoDict class and removing multiple functions from Parser class
+- [BREAKING] replacing sha256sums and sha512sums functions by get_sums(algorithm) function
+- [BREAKING] Deleting deprecated exception
+- Creating example.py and update README
 ## [1.2.1] - 2026-03-31
 
 ### 💼 Other
 
-- Version 1.2.1: Fix parser_core.py arch detection in replacevar()
 - Fix pyproject.toml
+- Version 1.2.1: Fix parser_core.py arch detection in replacevar()
 ## [1.2.0] - 2026-03-30
 
 ### 🐛 Bug Fixes
@@ -61,24 +66,25 @@
 
 ### 💼 Other
 
-- Support for replace known Bash vars and migrating to MPL-2.0 License
-- Adding workflow for flake8
-- Fix workflow
-- Update README
-- Parser_core.py: fix replacevar() bugs
 - Update changelog and README
+- Fix replacevar() bugs
+- Update README
+- Fix workflow
+- Adding workflow for flake8
+- Support for replace known Bash vars and migrating to MPL-2.0 License
 ## [1.1.0] - 2026-03-05
 
 ### 💼 Other
 
-- Actualizando docs
-- Quitando docs de repositorio temporal de aprendizaje
-- Moviendo documentación en español a sitio web y dejando inglés como README.md
 - Version 1.1.0, Cambios en el changelog.md
+- Moviendo documentación en español a sitio web y dejando inglés como README.md
+- Quitando docs de repositorio temporal de aprendizaje
+- Actualizando docs
 ## [1.0.1] - 2025-12-22
 
 ### 💼 Other
 
+- Actualizando changelog
 - Version 1.0.1: Correción de error de parseo
 
 - Corregido error en la función principal multiline que hacía un mal
@@ -87,7 +93,6 @@ altamente incorrectos.
 - Corregido error en la función principal multiline que hacía continuar
   a la función cuando el parseo se debía terminar, lo que producía
 resultados repetidos o altamente incorrectos.
-- Actualizando changelog
 ## [1.0.0] - 2025-12-05
 
 ### 💼 Other
