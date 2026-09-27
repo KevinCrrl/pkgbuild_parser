@@ -1,6 +1,9 @@
 name: Update Changelog
 
-on: [push, pull_request]
+on:
+  push:
+    tags:
+      - '*'
 
 jobs:
   changelog:
