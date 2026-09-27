@@ -22,6 +22,7 @@ All the PRs must follow these requirements:
 - Test your code (before and after) using a real PKGBUILD
 - Don't add new dependencies, open a issue or discussion if you consider necesary a new dependency
 - Document your changes in the PR (and in the code if necesary), it is used for the CHANGELOG
+- Follow [Conventional Commits](https://www.conventionalcommits.org), , since this project now uses git-cliff to auto-generate the CHANGELOG and there have been issues with previous commits.
 
 ### AI Usage Policy
 
