@@ -18,6 +18,3 @@ Homepage = "https://github.com/KevinCrrl/pkgbuild_parser"
 [tool.setuptools]
 packages = ["pkgbuild_parser"]
 package-dir = {key = "pkgbuild_parser"}
-
-[tool.ruff.lint]
-ignore = ["F403"]
