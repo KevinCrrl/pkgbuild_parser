@@ -111,7 +111,7 @@ class ParserCore:
 
     def _get_arch_as_str(self) -> str:
         archs: list[str] = self.multiline("arch")
-        if len(archs) > 1 and ARCH in archs:
+        if ARCH in archs:
             return ARCH
         return archs[0]
 

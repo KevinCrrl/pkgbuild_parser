@@ -1,183 +1,146 @@
-# Changelog
+## [unreleased]
 
-## Versión 2.3.0 (2026-08-12)
+### 💼 Other
 
-### Nuevas funcionalidades
+- Update README.md
+- Fix README.md
+- CI: replace flake8 by ruff and replace archlinux container by alpine
+- Pyproject.toml: add ruff ignore
+- Initial support for variables with architecture (not complete)
+- Add get_by_arch support to other variables
+- Add auto option to arch argument
+## [2.3.0] - 2026-08-12
 
-- Almacenamiento de datos ya encontrados usando `enable_cache` en la clase `Parser`
-- Capacidad para añadir variables personalizadas a la clase `Parser` para ser seguidas por replacevary sustituirlas en otras variables.
+### 💼 Other
 
-### Correciones y mejoras
+- Update example and changelog
+- Add cache option and clear legacy code; migrating to shlex.split
+- Add custom variables to replacevar using the Parser class
+- Update changelog and update version to 2.3.0
+- Update README.md and create version 2.3.0
+## [2.2.0] - 2026-08-02
 
-- Usando `multiline` para `get_base` accediendo al índice 0 de la lista retornada.
-- Eliminando código usado para parsear correctamente `optdepends`, ahora se usa split de shlex.
+### 💼 Other
 
-## Versión 2.2.0. (2026-08-02)
+- Add general CoC
+- Add CONTRIBUTING.md file
+- Add support for multiple variables
+- Version 2.2.0
+## [2.1.0] - 2026-06-13
 
-### Nuevas funcionalidades
+### 💼 Other
 
-- Nuevos métodos: `get_groups`, `get_changelog`, `get_backup`, `get_noextract`
+- Version 2.1.0
+## [2.0.0] - 2026-04-29
 
-### Correciones y mejoras
+### 🐛 Bug Fixes
 
-- Se añade __slots__ a la clase hija Parser
+- Fix parser_core.py multiline function and using multiline for get_pkgbase function
 
-## Versión 2.1.0 (2026-06-13)
+### 💼 Other
 
-### Nuevas funcionalidades
+- Creating example.py and update README
+- [BREAKING] Deleting deprecated exception
+- [BREAKING] replacing sha256sums and sha512sums functions by get_sums(algorithm) function
+- [BREAKING] Creating InfoDict class and removing multiple functions from Parser class
+- Removing code that deletes keys for unknown vars.
+- Adding ignore_errors option to InfoDict class
+- Update README
+- Version 2.0.0; See the changelog.md
+## [1.2.1] - 2026-03-31
 
-- Método `get_install` en la clase Parser para obtener el nombre del script de instalación
+### 💼 Other
 
-### Correciones y mejoras
+- Version 1.2.1: Fix parser_core.py arch detection in replacevar()
+- Fix pyproject.toml
+## [1.2.0] - 2026-03-30
 
-- Ajuste en el type hint de retorno de la función `get_base` de la clase ParserCore para aclarar el retorno de un str y usar este tipo para todas las funciones que usan `get_base` en la clase Parser.
-- Añadiendo argumento info en la función `loop` de la clase InfoDict para tener mayor claridad interna del valor a obtener en el proceso de creación del diccionario.
+### 🐛 Bug Fixes
 
-## Versión 2.0.0 (2026-04-29)
+- Fix deprecated version
 
-### Nuevas funcionalidades
+### 💼 Other
 
-- Clase `InfoDict` para almacenar valores parseables.
-- Funciones `get_dict`, `to_json` y `write_json` en la clase `InfoDict`.
-- Función `get_sums(algorithm)` para parsear varios métodos de integridad sin programarlos todos en el parser.
+- Support for replace known Bash vars and migrating to MPL-2.0 License
+- Adding workflow for flake8
+- Fix workflow
+- Update README
+- Parser_core.py: fix replacevar() bugs
+- Update changelog and README
+## [1.1.0] - 2026-03-05
 
-### Correciones y mejoras
+### 💼 Other
 
-- Ajuste en la función `multiline` para lineas que no tienen "()".
-- Cambiando retorno de `get_pkgbase` a lista en vez de string.
-- Cambiando retorno de `get_optdepends` de lista a dict.
-- Eliminando código que quitaba las llaves de variables desconocidas.
+- Actualizando docs
+- Quitando docs de repositorio temporal de aprendizaje
+- Moviendo documentación en español a sitio web y dejando inglés como README.md
+- Version 1.1.0, Cambios en el changelog.md
+## [1.0.1] - 2025-12-22
 
-### Cambios Rompedores (Breaking Changes)
+### 💼 Other
 
-- Eliminación de la excepción deprecada `ParserNoneTypeError`.
-- Eliminación de los métodos `get_dict*`, `*_to_json` y `write_*_to_json` de la clase `Parser` (todo esto ha sido reemplazado por la clase InfoDict para mayor modularidad).
-- Eliminación de los métodos `get_*_sums` (Reemplazados por la función `get_sums(algorithm)` para mayor modularidad).
-- Eliminación del método `get_dict_optdepends` (Ahora `get_optdepends` retorna el dict en vez de list).
+- Version 1.0.1: Correción de error de parseo
 
-## Version 1.2.1 (2026-03-31)
+- Corregido error en la función principal multiline que hacía un mal
+  parseo de listas y strings lo que producía resultados separados y
+altamente incorrectos.
+- Corregido error en la función principal multiline que hacía continuar
+  a la función cuando el parseo se debía terminar, lo que producía
+resultados repetidos o altamente incorrectos.
+- Actualizando changelog
+## [1.0.0] - 2025-12-05
 
-### Correciones y mejoras
+### 💼 Other
 
-- Correción en parser_core.py al reemplazar la arquitectura
-- Simplificación del reemplazo de la arquitectura
+- Versión 1.0.0:
 
-## Version 1.2.0 (2026-03-30)
+- Mejor estabilidad y soporte más amplio en las funciones que usan multiline()
+- Uso de remove_quotes() en todas las funciones que usan get_base()
+- Eliminación de funciones innecesarias (*_without_quotes)
+- Nuevas funciones para obtener más datos de un PKGBUILD.
 
-### Nuevas funcionalidades
+Más información sobre los cambios en el archivo changelog.md
+## [0.4.1] - 2025-11-19
 
-- El parser puede reemplazar variables Bash dentro de una cadena si es una variables conocida como pkgname o _pkgname
-- La licencia se ha cambiado de MIT a MPL-2.0
+### 💼 Other
 
-### Correciones y mejoras
+- Versión 0.4.1
 
-- Varios bugs corregidos en parser_core.py
-- Mejoras de estilo en pkgbuild_parser.py
-- Uso de flake8 en GitHub Actions
+Mejora en la función multiline de la clase ParserCore para evitar
+errores en distintos casos de PKGBUILD, esta mejora beneficia a todas
+las funciones que usan la función multiline.
+## [0.4.0] - 2025-11-11
 
-## Version 1.1.0 (2026-03-05)
+### 💼 Other
 
-### Nuevas funcionalidades
+- Nueva versión, cambios disponibles en cangelog.md
+## [0.3.1] - 2025-10-11
 
-- Parser() por defecto admite un archivo con el nombre PKGBUILD, ahorrando tener que escribirlo cada momento.
-- Nuevas funciones `get_conflicts()`, `get_provides()`, `get_replaces()` y `get_pkgbase()`.
+### 💼 Other
 
-### Correcciones y mejoras
+- Versión 0.3.1 cambios visibles en changelog
+## [0.3.0] - 2025-10-09
 
-- ParserNoneTypeError ha sido marcado como deprecated y será eliminado en un futuro, se debe usar ParserKeyError en su reemplazo.
-- Las funciones `get_base()` y `none_prevention()` han sido combinadadas.
-- Se ha mejorado el parseo encontrado las claves usando .startswith y endswith en vez de un in.
-- Mejoras de estilo.
+### 💼 Other
 
-## Versión 1.0.1 (2025-12-22)
+- Versión 0.3.0 con cambios visibles en changelog.md
+## [0.2.0] - 2025-10-07
 
-### Correcciones
+### 💼 Other
 
-- Corregido error en la función principal multiline que hacía un mal parseo de listas y strings lo que producía resultados separados y altamente incorrectos.
-- Corregido error en la función principal multiline que hacía continuar a la función cuando el parseo se debía terminar, lo que producía resultados repetidos o altamente incorrectos.
+- Nueva versión 0.2.0 con nuevas funciones y cambios disponibles en el README
+## [0.1.2] - 2025-10-06
 
-## Versión 1.0.0 (2025-12-03)
+### 💼 Other
 
-### Cambios Rompedores (Breaking Changes)
+- Función para remover comillas simples y dobles que ayuda a removerlas de los valores que retorna el PKGBUILD
+## [0.1.1] - 2025-10-06
 
-- **Eliminación de funciones `*_without_quotes`**: Se han eliminado las siguientes funciones, ya que el comportamiento de eliminar comillas ahora está integrado por defecto:
-  - `get_dict_base_info_without_quotes()`
-  - `base_info_to_json_without_quotes()`
-  - `write_base_info_to_json_without_quotes()`
-- **Comillas eliminadas por defecto**: Las funciones que devuelven un solo valor de texto (como `get_pkgname`, `get_pkgdesc`, etc.) ahora eliminan las comillas dobles o simples del valor de forma predeterminada.
+### 💼 Other
 
-### Nuevas características
+- Arreglo a setup.py
+## [0.1.0] - 2025-10-06
 
-- **Nuevas funciones para sumas de verificación y claves PGP**:
-  - `get_sha256sums()`: Retorna una lista de las sumas de verificación sha256.
-  - `get_sha512sums()`: Retorna una lista de las sumas de verificación sha512.
-  - `get_validpgpkeys()`: Retorna una lista de las claves PGP válidas.
+### 💼 Other
 
-### Mejoras y Correcciones
-
-- **Análisis de arrays mejorado**: Se ha refactorizado la lógica interna (`multiline`) para analizar variables de tipo array en los `PKGBUILD`. Ahora es más robusta y compatible con diferentes estilos de formato, incluyendo paquetes en la misma línea separados por espacios.
-- **Calidad del código**: Se han añadido `type hints` a las funciones para mejorar la legibilidad y facilitar el mantenimiento.
-- **Refactorización interna**: Mejoras generales en la estructura y eficiencia del código.
-
-## Versión 0.4.1 (2025-11-19)
-
-### Correcciones
-
-- **Corrección de `optdepends`**: Se ha corregido un error en la función `multiline(key)` que impedía que los arrays declarados en una sola línea en el PKGBUILD se procesaran correctamente. Ahora, la función puede extraer valores de arrays tanto multilínea como de una sola línea.
-
-## Versión 0.4.0 (2025-11-11)
-
-### Nuevas características
-
-- **Nuevas funciones para el usuario**:
-  - `optdepends_to_json()`: Retorna un JSON de las dependencias opcionales del paquete.
-  - `write_optdepends_to_json()`: Escribe en un JSON las dependencias opcionales del paquete.
-  - `get_options()`: Retorna una lista de las opciones del paquete.
-  - `get_checkdepends()`: Retorna una lista de las dependencias de verificación del paquete.
-
-### Mejoras
-
-- **`get_license()` mejorado**: Ahora devuelve una lista de licencias, gracias a la nueva capacidad de `multiline()`.
-- **`get_epoch()` mejorado**: Ahora usa `none_prevention` para evitar que la función devuelva `None` cuando no se esperaba, en su lugar, ahora devuelve un `ParserNoneTypeError`.
-
-### Cambios estructurales
-
-- **El proyecto ahora es un paquete**: El proyecto ha sido reestructurado de un solo archivo a un paquete de Python. Esto mejora la modularidad y la capacidad de mantenimiento.
-
-## Versión 0.3.1 (2025-10-11)
-
-### Correcciones
-
-- **Soporte para arrays en una sola línea**: Se ha corregido un error en la función `multiline(key)` que impedía que los arrays declarados en una sola línea en el PKGBUILD se procesaran correctamente. Ahora, la función puede extraer valores de arrays tanto multilínea como de una sola línea.
-- **`get_arch()` ahora devuelve una lista**: La función `get_arch()` ahora utiliza `multiline()` y devuelve una lista de arquitecturas, en lugar de un string.
-
-### Cambios deprecados
-
-- **`get_list_arch()` eliminado**: Esta función ha sido eliminada, ya que `get_arch()` ahora devuelve una lista directamente.
-
-## Versión 0.3.0 (2025-10-09)
-
-### Nuevas características
-
-- **Soporte para arrays multilínea**: Se ha añadido la función `multiline(key)` para extraer valores que se extienden por varias líneas en el PKGBUILD, como `source`, `depends`, `makedepends` y `optdepends`.
-- **Nuevas funciones para el usuario**:
-  - `get_arch()`: Obtiene la arquitectura del paquete.
-  - `get_depends()`: Obtiene la lista de dependencias.
-  - `get_makedepends()`: Obtiene la lista de dependencias de compilación.
-  - `get_optdepends()`: Obtiene la lista de dependencias opcionales.
-  - `get_dict_optdepends()`: Convierte las dependencias opcionales en un diccionario.
-  - `get_list_arch()`: Obtiene la lista de arquitecturas.
-
-### Mejoras
-
-- **`get_source()` mejorado**: Ahora devuelve una lista de fuentes, gracias a la nueva capacidad de `multiline()`.
-- **`get_dict_base_info()` actualizado**: El diccionario de información base ahora incluye el campo `arch`.
-- **Refactorización de `get_dict_base_info_without_quotes()`**: La función ha sido simplificada para mayor claridad y eficiencia.
-
-### Cambios deprecados
-
-- **`get_list_source()` eliminado**: Esta función ha sido eliminada, ya que `get_source()` ahora devuelve una lista directamente.
-
-### Correcciones
-
-- **Manejo de `epoch`**: Se ha mejorado la lógica para manejar casos donde `epoch` no está presente, lanzando un `ParserNoneTypeError` de manera más consistente.
+- Añadiendo archivos para la primera versión
