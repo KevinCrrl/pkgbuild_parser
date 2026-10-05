@@ -2,6 +2,7 @@
 #  License, v. 2.0. If a copy of the MPL was not distributed with this
 #  file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
+from os import PathLike
 from platform import machine
 from shlex import split
 
@@ -31,10 +32,10 @@ class ParserCore:
 
     def __init__(
         self,
-        filename: str = "PKGBUILD",
-        enable_cache: bool = True,
-        extra_names: list[str] | None = None,
-        arch: str | None = None,
+        filename: str | PathLike,
+        enable_cache: bool,
+        extra_names: list[str] | None,
+        arch: str | None,
     ):
         try:
             with open(filename, "r", encoding="utf-8") as f:

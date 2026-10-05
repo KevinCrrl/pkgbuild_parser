@@ -6,6 +6,7 @@
 # Docs: https://github.com/KevinCrrl/pkgbuild_parser/blob/main/README.md
 
 import json
+from os import PathLike
 
 from pkgbuild_parser.parser_core import ParserCore, ParserKeyError
 
@@ -15,10 +16,10 @@ class Parser(ParserCore):
 
     def __init__(
         self,
-        filename: str = "PKGBUILD",
+        filename: str | PathLike = "PKGBUILD",
         enable_cache: bool = True,
         extra_names: list[str] | None = None,
-        arch: str | None = None,
+        arch: str | None = "auto",
     ):
         super().__init__(filename, enable_cache, extra_names, arch)
 
