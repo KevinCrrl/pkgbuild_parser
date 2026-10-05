@@ -60,7 +60,7 @@ class ParserCore:
                 # line example: optdepends=('one_package: one_desc') # comment
 
                 # new line example: optdepends=(one_package: one_desc) or optdepends=(package: desc
-                line: str = line.split("#")[0].strip()
+                line: str = line.split(" #")[0].strip()
                 if not key_found and line.startswith(f"{key}="):  # key discovered
                     # fix for depends and makedepends
                     if key != "pkgdesc" and " " in line and ":" not in line:
@@ -68,7 +68,7 @@ class ParserCore:
                         list_of_lines[0] = list_of_lines[0].split("=(")[1]
                     else:
                         list_of_lines.append(
-                            line.split("=")[1].lstrip("(").rstrip(" ")
+                            line.split("=", 1)[1].lstrip("(").rstrip(" ")
                         )  # new line example: one_package: one_desc) or package: desc
                     key_found = True
                     if not line.startswith(
@@ -117,16 +117,20 @@ class ParserCore:
         return archs[0]
 
     def get_by_arch(self, key: str) -> list[str]:
-        any_arch: list[str] = self.multiline(key)
-        if self.arch or self.arch != "any":
+        any_arch: list[str] = self.multiline(
+            key
+        )  # General variable, example: source=()
+        if self.arch and self.arch != "any":
             if self.arch == "auto":
                 self.arch = self._get_arch_as_str()
             try:
                 key = f"{key}_{self.arch}"
-                return any_arch + self.multiline(key)
+                return any_arch + self.multiline(
+                    key  # Arch variable, example: source_x86_64=()
+                )
             except (
-                ParserKeyError
-            ):  # Ignore if an especific arch variable does not exist
+                ParserKeyError  # Ignore if an especific arch variable does not exist
+            ):
                 pass
         return any_arch
 
