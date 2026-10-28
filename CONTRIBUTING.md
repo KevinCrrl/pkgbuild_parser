@@ -1,4 +1,3 @@
-
 # Contributing to pkgbuild parser
 
 You can contribute to PKGBUILD-Parser by following these guidelines and recommendations:
@@ -18,11 +17,11 @@ All type of contributions are welcome, some examples of contributions:
 All the PRs must follow these requirements:
 
 - Comply with PEP-8 throughout the Python code.
-- Use flake8 to analyze your code (In GitHub this is automated via Actions)
+- Use ruff to analyze your code (In GitHub this is automated via Actions)
 - Test your code (before and after) using a real PKGBUILD
-- Don't add new dependencies, open a issue or discussion if you consider necesary a new dependency
+- Don't add new dependencies, open an issue or discussion if you consider necesary a new dependency
 - Document your changes in the PR (and in the code if necesary), it is used for the CHANGELOG
-- Follow [Conventional Commits](https://www.conventionalcommits.org), , since this project now uses git-cliff to auto-generate the CHANGELOG and there have been issues with previous commits.
+- Follow [Conventional Commits](https://www.conventionalcommits.org), since this project now uses git-cliff to auto-generate the CHANGELOG and there have been issues with previous commits.
 
 ### AI Usage Policy
 
